@@ -1,0 +1,22 @@
+<template>
+	<view style="background-color: #000000; width: 200px; height: 300px;">
+		dddd
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
+</style>

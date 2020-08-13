@@ -1,0 +1,746 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index", //首页
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/index/postReward/highPrice", //高佣悬赏
+			"style": {
+				"navigationBarTitleText": "高佣悬赏",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/index/postReward/redPrice", //红包转发
+			"style": {
+				"navigationBarTitleText": "红包转发",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/index/integral/off-line", //线下积分商城
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/index/integral/on-line", //线上积分商城
+			"style": {
+				"navigationBarTitleText": "线上积分商城",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/superior/tabSubpage/site", //定位地址
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/superior/tabSubpage/search", //搜索
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/my/setting/set", //设置
+			"style": {
+				"navigationBarTitleText": "设置",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/my/setting/news", //消息
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		// 公共页面
+		{
+			"path": "pages/commonality/shop-details", //商店详情
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/commonality/mercha-details", //商品详情
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/commonality/order", //提交订单
+			"style": {
+				"navigationBarTitleText": "提交订单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/changapsw/changapsw",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		}, {
+			"path": "pages/my/profit/profit",
+			"style": {
+				"navigationBarTitleText": "收益报表",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/withdrawal/withdrawal",
+			"style": {
+				"navigationBarTitleText": "提现记录",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/balance/balance",
+			"style": {
+				"navigationBarTitleText": "余额明细",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/ranking/ranking",
+			"style": {
+				"navigationBarTitleText": "出单排行榜",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/ranksingle/ranksingle",
+			"style": {
+				"navigationBarTitleText": "出单排行榜",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/consumerf/consumerf",
+			"style": {
+				"navigationBarTitleText": "消费券",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/footprint/footprint",
+			"style": {
+				"navigationBarTitleText": "我的足迹",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/teamfans/teamfans",
+			"style": {
+				"navigationBarTitleText": "团队粉丝",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/allorder/allorder",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/yhorder/yhorder",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/ygirderContent/ygirderContent",
+			"style": {}
+		}, {
+			"path": "pages/my/ptorderContent/ptorderContent",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/ygorderContent/ygorderContent",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/ptorder/ptorder",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/yhorderContent/yhorderContent",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/tutorial/tutorial",
+			"style": {
+				"navigationBarTitleText": "新手教程",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/college/college",
+			"style": {
+				"navigationBarTitleText": "商学院",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/curriculumlist/curriculumlist",
+			"style": {
+				"navigationBarTitleText": "0基础教程",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/courseDetails/courseDetails",
+			"style": {
+				"navigationBarTitleText": "课程详情",
+				"navigationBarBackgroundColor": "#f1f1f1",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/yunstore/yunstore",
+			"style": {
+				"navigationBarTitleText": "云合微店",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/yunstoreDismount/yunstoreDismount",
+			"style": {
+				"navigationBarTitleText": "云合微店",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/merchandising/merchandising",
+			"style": {
+				"navigationBarTitleText": "商品管理",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/merchandisingDismount/merchandisingDismount",
+			"style": {
+				"navigationBarTitleText": "商品管理",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/createActivity/createActivity",
+			"style": {
+				"navigationBarTitleText": "创建活动",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/myStore/myStore",
+			"style": {
+				"navigationBarTitleText": "我的门店",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/storeSet/storeSet",
+			"style": {
+				"navigationBarTitleText": "小店设置",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/orderManagement/orderManagement",
+			"style": {
+				"navigationBarTitleText": "订单管理",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/storeQRcode/storeQRcode",
+			"style": {
+				"navigationBarTitleText": "店铺二维码",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/storePreview/storePreview",
+			"style": {
+				"navigationBarTitleText": "店铺预览",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/informationSubmitted/informationSubmitted",
+			"style": {
+				"navigationBarTitleText": "信息已提交",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/storeSettlein/storeSettlein",
+			"style": {
+				"navigationBarTitleText": "门店入驻",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/mylivebroadcast/mylivebroadcast",
+			"style": {
+				"navigationBarTitleText": "我的直播",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/equityCenter/equityCenter",
+			"style": {
+				"navigationBarTitleText": "权益中心",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/commonProblem/commonProblem",
+			"style": {
+				"navigationBarTitleText": "常见问题",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/storeEntry/storeEntry",
+			"style": {
+				"navigationBarTitleText": "门店入驻",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/shareMaterial/shareMaterial",
+			"style": {
+				"navigationBarTitleText": "素材",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/exclusiveOrder/exclusiveOrder",
+			"style": {
+				"navigationBarTitleText": "专属密令",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/retrieveOrder/retrieveOrder",
+			"style": {
+				"navigationBarTitleText": "找回订单",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/balanceWithdrawal/balanceWithdrawal",
+			"style": {
+				"navigationBarTitleText": "余额提现",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/fillInformation/fillInformation",
+			"style": {
+				"navigationBarTitleText": "余额提现",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/my/informationSubmit/informationSubmit",
+			"style": {}
+		}, {
+			"path": "pages/my/openingActivity/openingActivity",
+			"style": {
+				"navigationBarTitleText": "开通活动金",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/my/contactUs/contactUs",
+			"style": {
+				"navigationBarTitleText": "联系我们",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/svideo/video-play/video-play",
+			"style": {
+				// "app-plus": {
+				// 	"subNVues": [{
+				// 		"id": "concat", 
+				// 		"path": "./pages/svideo/video-play/subNVue/subNVue", 
+				// 		"style":{
+				// 			"position":"dock",
+				// 			"dock":"top",
+				// 			"width":"100%",
+				// 			"height":"225px"
+				// 		}
+				// 	}]
+				// }
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {}
+		}, {
+			"path": "pages/my/qrcode/qrcode",
+			"style": {}
+		}, {
+			"path": "pages/login/code-login/code-login",
+			"style": {}
+		}, {
+			"path": "pages/reg/reg",
+			"style": {}
+		}, {
+			"path": "pages/login/password-login/password-login",
+			"style": {}
+		}, {
+			"path": "pages/login/bind-phone/bind-phone",
+			"style": {}
+		}, {
+			"path": "pages/my/change-password/change-password",
+			"style": {}
+		}, {
+			"path": "pages/my/pay-password/pay-password",
+			"style": {}
+		}, {
+			"path": "pages/my/bind-zfb/bind-zfb",
+			"style": {}
+		}, {
+			"path": "pages/user-agreement/user-agreement",
+			"style": {}
+		}, {
+			"path": "pages/privacy-policy/privacy-policy",
+			"style": {}
+		}, {
+			"path": "pages/my/about/about",
+			"style": {}
+		}, {
+			"path": "pages/my/change-phone/change-phone",
+			"style": {}
+		},
+		{
+			"path": "pages/superior/superior",
+			"style": {}
+		}, {
+			"path": "pages/superior/search/search",
+			"style": {}
+		}, {
+			"path": "pages/superior/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/home/search/search",
+			"style": {}
+		}, {
+			"path": "pages/business/business",
+			"style": {}
+		}, {
+			"path": "pages/business/search/search",
+			"style": {}
+		}, {
+			"path": "pages/business/address-list/address-list",
+			"style": {}
+		}, {
+			"path": "pages/home/home",
+			"style": {}
+		}, {
+			"path": "pages/business/shop/shop",
+			"style": {}
+		}, {
+			"path": "pages/business/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/business/submit-order/submit-order",
+			"style": {}
+		}, {
+			"path": "pages/business/order-pay/order-pay",
+			"style": {}
+		}, {
+			"path": "pages/business/pay-result/pay-result",
+			"style": {}
+		}, {
+			"path": "pages/business/rating/rating",
+			"style": {}
+		}, {
+			"path": "pages/superior/add-address/add-address",
+			"style": {}
+		}, {
+			"path": "pages/svideo/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/svideo/share/share",
+			"style": {}
+		}, {
+			"path": "pages/svideo/favorite/favorite",
+			"style": {}
+		}, {
+			"path": "pages/my/video-detail/video-detail",
+			"style": {}
+		}, {
+			"path": "pages/my/address/address",
+			"style": {}
+		}, {
+			"path": "pages/my/add-address/add-address",
+			"style": {}
+		}, {
+			"path": "pages/my/storeSettlein/apply/apply",
+			"style": {}
+		}, {
+			"path": "pages/my/storeSettlein/status/status",
+			"style": {}
+		}, {
+			"path": "pages/my/myStore/kaitong/kaitong",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/yh-store",
+			"style": {}
+		}, {
+			"path": "pages/my/myStore/preview/preview",
+			"style": {}
+		}, {
+			"path": "pages/my/myStore/setting/setting",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/edit/edit",
+			"style": {}
+		}, {
+			"path": "pages/superior/cart/cart",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/preview/preview",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/setting/setting",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/activity/activity",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/create-activity/create-activity",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/share-code/share-code",
+			"style": {}
+		}, {
+			"path": "pages/my/standard/standard",
+			"style": {}
+		}, {
+			"path": "pages/my/customer-service/customer-service",
+			"style": {}
+		}, {
+			"path": "pages/home/goods-list/goods-list",
+			"style": {}
+		}, {
+			"path": "pages/home/channel/channel",
+			"style": {}
+		}, {
+			"path": "pages/my/yunfenhong/yunfenhong",
+			"style": {}
+		}, {
+			"path": "pages/my/yh-store/goods-manage/goods-manage",
+			"style": {}
+		}, {
+			"path": "pages/my/allorder/offline-order/offline-order",
+			"style": {}
+		}, {
+			"path": "pages/home/newfree/newfree",
+			"style": {}
+		}, {
+			"path": "pages/my/commonProblem/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/superior/confirm-order/confirm-order",
+			"style": {}
+		}, {
+			"path": "pages/superior/order-pay/order-pay",
+			"style": {}
+		}, {
+			"path": "pages/superior/order-list/order-list",
+			"style": {}
+		}, {
+			"path": "pages/app-download/app-download",
+			"style": {}
+		}, {
+			"path": "pages/home/pdd/pdd",
+			"style": {}
+		}, {
+			"path": "pages/home/pdd/list/list",
+			"style": {}
+		}, {
+			"path": "pages/home/search/search-result/search-result",
+			"style": {}
+		}, {
+			"path": "pages/home/pdd/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/my/bankcard/bankcard",
+			"style": {}
+		}, {
+			"path": "pages/my/bankcard-list/bankcard-list",
+			"style": {}
+		}, {
+			"path": "pages/home/mailing-fee/mailing-fee",
+			"style": {}
+		}, {
+			"path": "pages/home/one-yuanbuy/one-yuanbuy",
+			"style": {}
+		}, {
+			"path": "pages/my/qrcode/rules/rules",
+			"style": {}
+		}, {
+			"path": "pages/home/taobao/taobao",
+			"style": {}
+		}, {
+			"path": "pages/home/taobao/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/business/list/list",
+			"style": {}
+		}, {
+			"path": "pages/my/balanceWithdrawal/list/list",
+			"style": {}
+		}, {
+			"path": "pages/superior/order-list/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/superior/order-list/wuliu/wuliu",
+			"style": {}
+		}, {
+			"path": "pages/superior/list/list",
+			"style": {}
+		}, {
+			"path": "pages/my/yunfenhong/list/list",
+			"style": {}
+		}, {
+			"path": "pages/my/yunfenhong/transfer-out/transfer-out",
+			"style": {}
+		}, {
+			"path": "pages/my/yunfenhong/transfer-in/transfer-in",
+			"style": {}
+		}
+	    ,{
+            "path" : "pages/superior/search/search-result/search-result",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/ctrip/ctrip",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/ele/ele",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/movies/movies",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/flypig/flypig",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/liveroom/liveroom",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/oil/oil",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/recharge/recharge",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/lottery-draw/lottery-draw",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/privilege-card/privilege-card",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/myStore/order/order",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/myStore/withdrawal/withdrawal",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/myStore/recharge/recharge",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/myStore/balance/balance",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/allorder/evaluate/evaluate",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/business/consumer-pay-result/consumer-pay-result",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/poster/goodsPoster",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle":"white",  //状态栏字体颜色
+		"navigationBarTitleText": "云合之家",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationStyle": "custom",
+		"backgroundColor": "#F8F8F8"
+	}
+}

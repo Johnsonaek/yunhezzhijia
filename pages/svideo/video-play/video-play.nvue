@@ -1,0 +1,185 @@
+<template>
+	<view :style="'width: ' + windowWidth + 'px; height: ' + windowHeight + 'px'">
+		<video
+			v-if="videoArr.length > 0"
+			:style="'width: ' + windowWidth + 'px; height: ' + windowHeight + 'px'"
+			id="myVideo"
+			:autoplay="true"
+			:src="videoArr[0].video_url"
+			:poster="videoArr[0].first_frame"
+			@error="videoErrorCallback"
+			:controls="true"
+		>
+			<view class="backbox flex flex-column">
+				<!-- <view class="abs" style="right:10px; top: 300px; margin-right: 20px;">
+					<view @click="like" class="wh80 radius50 flex aj-center bg-black-50">
+						<view v-if="isLike" class="cuIcon-likefill text-red fs50"></view>
+						<view v-else class="cuIcon-like text-white fs50"></view>
+					</view>
+					<view @click="openShowText" class="wh80 radius50 flex aj-center bg-black-50 mt40"><text class="iconfont text-white fs50">&#xe64a;</text></view>
+				</view> -->
+
+				<view v-if="showText"  class="boottom-box">
+					<view class="text-white text-wrap plr30 ptb20" style="min-height: 200rpx;">
+						<text class="text-white fs28">{{ detail.itemdesc }}</text>
+					</view>
+					<view class="flex a-center ptb20 plr30">
+						<view @click="showText = false" class="flex-item text-white tc">
+							<text class="text-white">取消</text>
+						</view>
+						<view style="background-color: #ffffff; width: 1px;" class="h50"></view>
+						<view @click="paste(detail.itemdesc)" class="flex-item tc">
+							<text class="text-red">复制</text>
+						</view>
+					</view>
+				</view>
+				<view v-else class="boottom-box">
+					<view @click="goto('/pages/svideo/detail/detail?id=' + detail.itemid)" class="flex a-center ptb20 plr30">
+						<view class="mr24"><image class="block radius12 wh160" :src="detail.itempic" mode=""></image></view>
+						<view class="flex-item">
+							<view>
+								<text class="text-white line2 fs30">{{ detail.itemtitle }}</text>
+							</view>
+							<view class="mt20 flex">
+								<text class="text-white fs24">券后价</text>
+								<text class="text-red mr20 fs24">￥{{ detail.itemprice }}</text>
+								<text class="text-white fs24">分享赚</text>
+								<text class="text-red fs24">￥{{ detail.tkmoney }}</text>
+							</view>
+						</view>
+						<view class=""><image class="wh60 block" src="/static/svideo/cart.png" mode=""></image></view>
+					</view>
+				</view>
+			</view>
+		</video>
+	</view>
+</template>
+
+<script>
+const d = weex.requireModule('dom');
+import '@/utils/ican-H5Api.js';
+import { post } from '@/utils/request.js';
+export default {
+	data() {
+		return {
+			detail: {},
+			windowWidth: 0,
+			windowHeight: 0,
+			videoArr: [],
+			showText: false,
+			isLike: false,
+			src: '',
+			danmuValue: ''
+		};
+	},
+	onReady: function(res) {
+		// #ifndef MP-ALIPAY
+		this.videoContext = uni.createVideoContext('myVideo');
+		// #endif
+	},
+	onLoad(e) {
+		this.id = e.id || 0;
+		this.getVideoDetail();
+		try {
+			const res = uni.getSystemInfoSync();
+			this.windowWidth = res.windowWidth;
+			this.windowHeight = res.windowHeight;
+			console.log(res.model);
+			console.log(res.pixelRatio);
+			console.log(res.windowWidth);
+			console.log(res.windowHeight);
+			console.log(res.language);
+			console.log(res.version);
+			console.log(res.platform);
+		} catch (e) {
+			// error
+		}
+		// 引入图标
+		d.addRule('fontFace', {
+			'fontFamily': "iconfont",
+			'src': "url('https://at.alicdn.com/t/font_533566_yfq2d9wdij.ttf')"
+		});
+	},
+	methods: {
+		async getVideoDetail() {
+			const res = await post('/wap/Material/VideoDetails', { itemid: this.id });
+			if (res.code == 200) {
+				this.videoArr = res.data;
+				this.detail = res.items;
+			}
+		},
+		sendDanmu: function() {
+			this.videoContext.sendDanmu({
+				text: this.danmuValue,
+				color: this.getRandomColor()
+			});
+			this.danmuValue = '';
+		},
+		videoErrorCallback: function(e) {},
+
+		getRandomColor: function() {
+			const rgb = [];
+			for (let i = 0; i < 3; ++i) {
+				let color = Math.floor(Math.random() * 256).toString(16);
+				color = color.length == 1 ? '0' + color : color;
+				rgb.push(color);
+			}
+			return '#' + rgb.join('');
+		},
+		paste(value) {
+			uni.setClipboardData({
+				data: value,
+				success() {
+					uni.showToast({
+						title: '复制成功'
+					});
+				}
+			});
+		},
+		like() {
+			this.isLike = !this.isLike;
+			// post('/wap/Coalition/SwitchCollection',{goods_id: this.id}).then(res =>{})
+			if (this.isLike) {
+				uni.showToast({
+					title: '已收藏',
+					icon: 'none'
+				});
+			} else {
+				uni.showToast({
+					title: '已取消收藏',
+					icon: 'none'
+				});
+			}
+		},
+		openShowText() {
+			this.showText = !this.showText;
+		},
+		goto(url) {
+			uni.navigateTo({
+				url: url
+			});
+		}
+	}
+};
+</script>
+
+<style scoped lang="scss">
+.backbox {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+.position-absolute {
+	position: absolute;
+}
+.boottom-box {
+	color: #fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+</style>

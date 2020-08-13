@@ -1,0 +1,576 @@
+<template>
+	<view class="simple-address" v-if="showPopup" @touchmove.stop.prevent="clear">
+		<!-- 遮罩层 -->
+		<view
+			class="simple-address-mask"
+			@touchmove.stop.prevent="clear"
+			v-if="maskClick"
+			:class="[ani + '-mask', animation ? 'mask-ani' : '']"
+			:style="{
+				'background-color': maskBgColor
+			}"
+			@tap="hideMask(true)"
+		></view>
+
+		<view class="simple-address-content simple-address--fixed" :class="[type, ani + '-content', animation ? 'content-ani' : '']">
+			<view v-if="showType == 2" class="qui-card panel">
+				<view class="flex pl30 bor-1px-b">
+					<view class="flex-item flex">
+						<view
+						   @click="clickTitleItem(index)"
+							v-for="(item, index) in addressVaule"
+							:key="index"
+							:class="index == swiperCurrent ? 'active' : ''"
+							class="mr30 flex a-center"
+						>{{ item.name }}</view>
+					</view>
+					<view class="wh90 flex aj-center" @click="pickerCancel"><text class="cuIcon-close fs34 text-gray"></text></view>
+				</view>
+				<swiper @change="changeSwiper" :current="swiperCurrent" style="height: 500rpx;" class="relative" :duration="300" :interval="1000">
+					<swiper-item v-for="(item, index) in 4" :key="index">
+						<view class="loading abs abscc" v-show="loading"></view>
+						<scroll-view scroll-y class="qui-cells small-padding" style="height: 500rpx;">
+							<view
+								v-if="index == 0"
+								@click="clickItem(index, index2, address)"
+								v-for="(address, index2) in sheng"
+								:key="index2"
+								class="qui-cell bor-left_0"
+								style="min-height: 45px;"
+							>
+								<view class="cell-bd" :class="addressVaule[index].activeIndex == index2 ? 'active' : ''">{{ address.name }}</view>
+								<view class="arrow-r"></view>
+							</view>
+							<view
+								v-if="index == 1"
+								@click="clickItem(index, index2, address)"
+								v-for="(address, index2) in shi"
+								:key="index2"
+								class="qui-cell bor-left_0"
+								style="min-height: 45px;"
+							>
+								<view class="cell-bd" :class="addressVaule[index].activeIndex == index2 ? 'active' : ''">{{ address.name }}</view>
+								<view class="arrow-r"></view>
+							</view>
+							<view
+								v-if="index == 2"
+								@click="clickItem(index, index2, address)"
+								v-for="(address, index2) in qu"
+								:key="index2"
+								class="qui-cell bor-left_0"
+								style="min-height: 45px;"
+							>
+								<view class="cell-bd" :class="addressVaule[index].activeIndex == index2 ? 'active' : ''">{{ address.name }}</view>
+								<view class="arrow-r"></view>
+							</view>
+							<view
+								v-if="index == 3"
+								@click="clickItem(index, index2, address)"
+								v-for="(address, index2) in jiedao"
+								:key="index2"
+								class="qui-cell bor-left_0"
+								style="min-height: 45px;"
+							>
+								<view class="cell-bd" :class="addressVaule[index].activeIndex == index2 ? 'active' : ''">
+									{{ address.name }}
+								</view>
+								<view class="arrow-r"></view>
+							</view>
+						</scroll-view>
+					</swiper-item>
+				</swiper>
+			</view>
+
+			<view v-if="showType == 1" class="simple-address__header">
+				<view class="simple-address__header-btn-box" @click="pickerCancel"><text class="simple-address__header-text text-gray">取消</text></view>
+				<view class="simple-address__header-btn-box" @click="pickerConfirm"><text class="simple-address__header-text text-theme">确定</text></view>
+			</view>
+			<view v-if="showType == 1" class="simple-address__box">
+				<picker-view indicator-style="height: 70rpx;" class="simple-address-view" :value="pickerValue" @change="pickerChange">
+					<picker-view-column>
+						<!-- #ifndef APP-NVUE -->
+						<view class="picker-item" v-for="(item, index) in provinceDataList" :key="index">{{ item.Name }}</view>
+						<!-- #endif -->
+						<!-- #ifdef APP-NVUE -->
+						<text class="picker-item" v-for="(item, index) in provinceDataList" :key="index">{{ item.Name }}</text>
+						<!-- #endif -->
+					</picker-view-column>
+					<picker-view-column>
+						<!-- #ifndef APP-NVUE -->
+						<view class="picker-item" v-for="(item, index) in cityDataList" :key="index">{{ item.Name }}</view>
+						<!-- #endif -->
+						<!-- #ifdef APP-NVUE -->
+						<text class="picker-item" v-for="(item, index) in cityDataList" :key="index">{{ item.Name }}</text>
+						<!-- #endif -->
+					</picker-view-column>
+					<picker-view-column>
+						<!-- #ifndef APP-NVUE -->
+						<view class="picker-item" v-for="(item, index) in areaDataList" :key="index">{{ item.Name }}</view>
+						<!-- #endif -->
+						<!-- #ifdef APP-NVUE -->
+						<text class="picker-item" v-for="(item, index) in areaDataList" :key="index">{{ item.Name }}</text>
+						<!-- #endif -->
+					</picker-view-column>
+				</picker-view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import citysData from './city-data/citys.js';
+let provinceData2 = [];
+let cityData2 = [];
+let areaData2 = [];
+export default {
+	name: 'simpleAddress',
+	props: {
+		// 显示样式，1普通picker 2仿拼多多
+		showType: {
+			type: Number,
+			default: 1
+		},
+		// 开启动画
+		animation: {
+			type: Boolean,
+			default: true
+		},
+		/* 弹出层类型，可选值；
+				bottom：底部弹出层
+			*/
+		type: {
+			type: String,
+			default: 'bottom'
+		},
+		// maskClick
+		maskClick: {
+			type: Boolean,
+			default: true
+		},
+		show: {
+			type: Boolean,
+			default: true
+		},
+		maskBgColor: {
+			type: String,
+			default: 'rgba(0, 0, 0, 0.4)' //背景颜色 rgba(0, 0, 0, 0.4) 为空则调用 uni.scss
+		},
+		themeColor: {
+			type: String,
+			default: '' // 主题色
+		},
+		/* 默认值 */
+		pickerValueDefault: {
+			type: Array,
+			default() {
+				return [0, 0, 0];
+			}
+		}
+	},
+	data() {
+		return {
+			loading: false,
+			sheng: [],
+			shi: [],
+			qu: [],
+			jiedao: [],
+			ani: '',
+			showPopup: false,
+			pickerValue: [0, 0, 0],
+			provinceDataList: [],
+			cityDataList: [],
+			areaDataList: [],
+			addressVaule: [
+				{
+					value: 0,
+					name: '请选择',
+					activeIndex: -1,
+				},
+				{
+					value: 0,
+					name: '',
+					activeIndex: -1
+				},
+				{
+					value: 0,
+					name: '',
+					activeIndex: -1
+				},
+				{
+					value: 0,
+					name: '',
+					activeIndex: -1
+				}
+			],
+			swiperCurrent: 0
+		};
+	},
+	watch: {
+		show(newValue) {
+			if (newValue) {
+				this.open();
+			} else {
+				this.close();
+			}
+		},
+		pickerValueDefault() {
+			this.init();
+		}
+	},
+	created() {
+		this.init();
+	},
+	methods: {
+		clickTitleItem(index) {
+			this.swiperCurrent = index;
+		},
+		changeSwiper(e) {
+			console.log(e.detail.current);
+			this.swiperCurrent = e.detail.current;
+		},
+		async getChildList(level, id) {
+			this.loading = true;
+			const res = await this.post('/wap/Region/getChildList', { id: id });
+			if (level == 0) {
+				this.sheng = res.data.list;
+			} else if (level == 1) {
+				this.shi = res.data.list;
+			} else if (level == 2) {
+				this.qu = res.data.list;
+			} else if (level == 3) {
+				this.jiedao = res.data.list;
+			}
+			this.loading = false
+		},
+
+		async changeTab(e) {
+			let index = e.target.current;
+			this.swiperCurrent = index;
+		},
+		clickItem(index, index2, item) {
+			if(index<3) {
+				this.getChildList(index + 1, item.id);
+			}
+			if(index<=3) {
+				
+				
+				let me = this;
+				this.addressVaule[index].activeIndex = index2;
+				this.addressVaule[index].name = item.name;
+				this.addressVaule[index].value = item.id;
+				
+				// console.log(this.addressVaule)
+	
+				for(let i=0; i<=3; i++) {
+					if(i>index) {
+						this.addressVaule[i].name=" "
+					}
+				}
+				if(index==3) {
+					this.pickerConfirm()
+					this.close()
+					return
+				} else {
+					me.addressVaule[index + 1].name="请选择"
+					me.swiperCurrent = index + 1;
+				}
+				
+				
+				
+			}
+			
+		},
+		init() {
+			provinceData2 = citysData.map(v => {
+				return {
+					Id: v.Id,
+					Name: v.Name,
+					ParentId: v.ParentId
+				};
+			});
+
+			cityData2 = citysData.map(v => {
+				return v.Children.map(v2 => {
+					return {
+						Id: v2.Id,
+						Name: v2.Name,
+						ParentId: v2.ParentId
+					};
+				});
+			});
+			// console.log(cityData2)
+
+			areaData2 = citysData.map(v => {
+				let city = v.Children;
+
+				let area = city.map(v2 => {
+					return v2.Children.map(v3 => {
+						return {
+							Id: v3.Id,
+							Name: v3.Name,
+							ParentId: v3.ParentId
+						};
+					});
+				});
+				return area;
+			});
+
+			this.handPickValueDefault(); // 对 pickerValueDefault 做兼容处理
+			this.provinceDataList = provinceData2;
+			this.cityDataList = cityData2[this.pickerValueDefault[0]];
+			this.areaDataList = areaData2[this.pickerValueDefault[0]][this.pickerValueDefault[1]];
+			this.pickerValue = this.pickerValueDefault;
+		},
+		handPickValueDefault() {
+			if (this.pickerValueDefault !== [0, 0, 0]) {
+				if (this.pickerValueDefault[0] > provinceData2.length - 1) {
+					this.pickerValueDefault[0] = provinceData2.length - 1;
+				}
+				if (this.pickerValueDefault[1] > cityData2[this.pickerValueDefault[0]].length - 1) {
+					this.pickerValueDefault[1] = cityData2[this.pickerValueDefault[0]].length - 1;
+				}
+				if (this.pickerValueDefault[2] > areaData2[this.pickerValueDefault[0]][this.pickerValueDefault[1]].length - 1) {
+					this.pickerValueDefault[2] = areaData2[this.pickerValueDefault[0]][this.pickerValueDefault[1]].length - 1;
+				}
+			}
+		},
+		pickerChange(e) {
+			let changePickerValue = e.detail.value;
+			if (this.pickerValue[0] !== changePickerValue[0]) {
+				// 第一级发生滚动
+				this.cityDataList = cityData2[changePickerValue[0]];
+				this.areaDataList = areaData2[changePickerValue[0]][0];
+				changePickerValue[1] = 0;
+				changePickerValue[2] = 0;
+			} else if (this.pickerValue[1] !== changePickerValue[1]) {
+				// 第二级滚动
+				this.areaDataList = areaData2[changePickerValue[0]][changePickerValue[1]];
+				changePickerValue[2] = 0;
+			}
+			this.pickerValue = changePickerValue;
+			this._$emit('onChange');
+		},
+		_$emit(emitName) {
+			let pickObj = {
+				label: this._getLabel(),
+				value: this.pickerValue,
+				cityCode: this._getCityCode(),
+				areaCode: this._getAreaCode(),
+				provinceCode: this._getProvinceCode()
+			};
+			// this.addressVaule[]
+			let pickObj2 = {
+				label: this._getLabel2(),
+				provinceCode: this.addressVaule[0].value,
+				cityCode: this.addressVaule[1].value,
+				areaCode: this.addressVaule[2].value,
+				streetCode: this.addressVaule[3].value,
+			};
+			if(this.showType == 1) {
+				this.$emit(emitName, pickObj);
+			} else {
+				this.$emit(emitName, pickObj2);
+			}
+			
+		},
+		_getLabel2() {
+			let pcikerLabel =
+				this.addressVaule[0].name + '-' + this.addressVaule[1].name + '-' + this.addressVaule[2].name + '-' + this.addressVaule[3].name;
+			return pcikerLabel;
+		},
+		_getLabel() {
+			let pcikerLabel =
+				this.provinceDataList[this.pickerValue[0]].Name + '-' + this.cityDataList[this.pickerValue[1]].Name + '-' + this.areaDataList[this.pickerValue[2]].Name;
+			return pcikerLabel;
+		},
+		_getCityCode() {
+			return this.cityDataList[this.pickerValue[1]].Id;
+		},
+		_getProvinceCode() {
+			return this.provinceDataList[this.pickerValue[0]].Id;
+		},
+		_getAreaCode() {
+			return this.areaDataList[this.pickerValue[2]].Id;
+		},
+		clear() {},
+		hideMask() {
+			this._$emit('onCancel');
+			this.close();
+		},
+		pickerCancel() {
+			this._$emit('onCancel');
+			this.close();
+		},
+		pickerConfirm() {
+			this._$emit('onConfirm');
+			this.close();
+		},
+		open() {
+			this.showPopup = true;
+			this.getChildList(0, 0); // 获取省数据
+			console.log(this.sheng);
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.ani = 'simple-' + this.type;
+				}, 100);
+			});
+		},
+		close(type) {
+			if (!this.maskClick && type) return;
+			this.ani = '';
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.showPopup = false;
+				}, 300);
+			});
+		}
+	}
+};
+</script>
+
+<style lang="scss" scoped>
+.simple-address {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: column;
+}
+
+.simple-address-mask {
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	transition-property: opacity;
+	transition-duration: 0.3s;
+	opacity: 0;
+	/* #ifndef APP-NVUE */
+	z-index: 99;
+	/* #endif */
+}
+
+.mask-ani {
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.simple-bottom-mask {
+	opacity: 1;
+}
+
+.simple-center-mask {
+	opacity: 1;
+}
+
+.simple-address--fixed {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	transition-property: transform;
+	transition-duration: 0.3s;
+	transform: translateY(460rpx);
+	/* #ifndef APP-NVUE */
+	z-index: 99;
+	/* #endif */
+}
+
+.simple-address-content {
+	background-color: #ffffff;
+}
+
+.simple-content-bottom {
+	bottom: 0;
+	left: 0;
+	right: 0;
+	transform: translateY(500rpx);
+}
+
+.content-ani {
+	transition-property: transform, opacity;
+	transition-duration: 0.2s;
+}
+
+.simple-bottom-content {
+	transform: translateY(0);
+}
+
+.simple-center-content {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.simple-address__header {
+	padding-top: 10rpx;
+	padding-bottom: 10rpx;
+	position: relative;
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	border-bottom-color: #f2f2f2;
+	border-bottom-style: solid;
+	border-bottom-width: 1rpx;
+}
+
+.simple-address--fixed-top {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: row;
+	justify-content: space-between;
+	border-top-color: $uni-border-color;
+	border-top-style: solid;
+	border-top-width: 1rpx;
+}
+
+.simple-address__header-btn-box {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 70rpx;
+}
+
+.simple-address__header-text {
+	text-align: center;
+	font-size: $uni-font-size-base;
+	line-height: 70rpx;
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+}
+
+.simple-address__box {
+	position: relative;
+}
+
+.simple-address-view {
+	position: relative;
+	bottom: 0;
+	left: 0;
+	/* #ifndef APP-NVUE */
+	width: 100%;
+	/* #endif */
+	/* #ifdef APP-NVUE */
+	width: 750rpx;
+	/* #endif */
+	height: 408rpx;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.picker-item {
+	text-align: center;
+	line-height: 70rpx;
+	text-overflow: ellipsis;
+	font-size: 28rpx;
+}
+.active {
+	color: var(--themeColor);
+}
+</style>
