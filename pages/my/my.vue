@@ -45,11 +45,11 @@
 				<navigator url="/pages/my/balanceWithdrawal/balanceWithdrawal" class="qui-btn inline h60 outline round" style="border-color: #000000; color: #000;">提现</navigator>
 			</view>
 			<view class="bor-1px-b mlr30"></view>
-			<navigator url="/pages/my/profit/profit" class="qui-grids column4 gutter30-tb ptb10">
-				<view class="qui-grid">
+			<view  class="qui-grids column4 gutter30-tb ptb10">
+				<navigator class="qui-grid" url="/pages/my/profit/profit">
 					<view class="fs36 num">100</view>
 					<view class="fs26 mt20">今日预估</view>
-				</view>
+				</navigator>
 				<view class="qui-grid">
 					<view class="fs36 num">100</view>
 					<view class="fs26 mt20">今日销售</view>
@@ -62,23 +62,23 @@
 					<view class="fs36 num">100</view>
 					<view class="fs26 mt20">累计订单</view>
 				</view>
-				<view class="qui-grid">
+				<navigator class="qui-grid" url="/pages/my/encourage/encourage">
 					<view class="fs36 num">100</view>
 					<view class="fs26 mt20">鼓励金</view>
-				</view>
-				<view class="qui-grid">
-					<view class="fs36 num">100</view>
-					<view class="fs26 mt20">消费券</view>
-				</view>
-				<view class="qui-grid">
-					<view class="fs36 num">100</view>
-					<view class="fs26 mt20">分红宝</view>
-				</view>
-				<view class="qui-grid">
+				</navigator>
+				<navigator class="qui-grid" url="/pages/my/profit/profit">
 					<view class="fs36 num">100</view>
 					<view class="fs26 mt20">累计收益</view>
-				</view>
-			</navigator>
+				</navigator>
+				<navigator class="qui-grid" url="/pages/my/consumption/consumption">
+					<view class="fs36 num">100</view>
+					<view class="fs26 mt20">消费劵</view>
+				</navigator>
+				<navigator class="qui-grid" url="/pages/my/yunfenhong/yunfenhong">
+					<view class="fs36 num">100</view>
+					<view class="fs26 mt20">红利宝</view>
+				</navigator>
+			</view>
 		</view>
 
 		<!-- 升级vip -->

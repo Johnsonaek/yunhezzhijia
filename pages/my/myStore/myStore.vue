@@ -28,6 +28,12 @@
 					</navigator>
 				</view>
 				<view class="qui-grid">
+					<navigator url="/pages/my/myStore/goldred/goldred">
+						<image src="/static/md_icon_05.png" class="wh80 mb10"></image>
+						<text class="flex a-center j-center fs22" style="width: 100%; color: #999999;">红包金</text>
+					</navigator>
+				</view>
+				<view class="qui-grid">
 					<view @click="goto('/pages/my/myStore/order/order')">
 						<image src="/static/md_icon_03.png" class="wh80 mb10"></image>
 						<text class="flex a-center j-center fs22" style="width: 100%; color: #999999;">订单管理</text>
@@ -77,5 +83,5 @@
 </script>
 
 <style>
-
+.column3 .qui-grid{ width: 25%; }
 </style>

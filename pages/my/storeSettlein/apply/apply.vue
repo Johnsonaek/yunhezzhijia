@@ -71,6 +71,11 @@
 					<view class="w180 mr10">联系方式</view>
 					<view class="cell-bd"><input v-model="form.mobile" type="text" value="" placeholder="请输入手机号码或者电话" /></view>
 				</view>
+				<view class="qui-cell" @tap="openAddres">
+					<view class="w180 mr30"><text class="tit">地区</text></view>
+					<view class="cell-bd flex">{{ pickerText }}</view>
+					<view class="arrow-r"></view>
+				</view>
 				<view class="qui-cell">
 					<view class="w180 mr10">联系地址</view>
 					<view class="cell-bd"><input type="text" value="" placeholder="联系地址" /></view>
@@ -90,11 +95,13 @@
 
 			<view class="plr50 mt50 pb30"><view  @click="submit"  class="qui-btn round">下一步</view></view>
 		</page>
+		<simple-address :showType="2" ref="simpleAddress" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirm" themeColor="#007AFF"></simple-address>
 	</view>
 </template>
 
 <script>
 import ImagePicker from '@/components/image-picker.vue';
+import simpleAddress from '@/components/simple-address/simple-address.nvue';
 import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
@@ -121,8 +128,10 @@ export default {
 				shopPath: '', // shopPath
 				mobile: '',
 				categoryId: 1, // 店铺所属分类
-				isDeliverySite: 1 // 是否为代收点 1不是代收点 2代收点
-			}
+				isDeliverySite: 1 ,// 是否为代收点 1不是代收点 2代收点
+			},
+			cityPickerValueDefault: [0, 0, 0],
+			pickerText: '请选择地区',
 		};
 	},
 	onLoad() {
@@ -175,6 +184,21 @@ export default {
 		upSuccess4(res) {
 			console.log(res)
 			this.form.identityDown = res.file
+		},
+		// 弹出选择地区
+		openAddres() {
+			this.$refs.simpleAddress.open();
+			
+		},
+		// 选择完得到省市区的 id
+		onConfirm(e) {
+			console.log(e);
+			this.pickerText = e.label;
+			this.form.province = e.provinceCode;
+			this.form.city = e.cityCode;
+			this.form.district = e.areaCode;
+			this.form.street = e.streetCode;
+			// console.log(this.form)
 		}
 	}
 };

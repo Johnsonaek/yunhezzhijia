@@ -1,5 +1,10 @@
 <template>
 	<page title="收益报表">
+		<view class="flex profit-box"> 
+			<view :class="[tabIndex==1?'item mlr10 action':'item mlr10']" @click="tab(1)">联盟</view>
+			<view :class="[tabIndex==2?'item mlr10 action':'item mlr10']" @click="tab(2)">云合优品</view>
+			<view :class="[tabIndex==3?'item mlr10 action':'item mlr10']" @click="tab(3)">线下门店</view>
+		</view>
 		<view class="bg-white ptb30">
 			<view class="radius10 mlr20 plr30 pt30 pb50" style="background: url(../../../static/business/profit_head.png) no-repeat center center;background-size: cover;">
 				<view class="flex mb30">
@@ -33,12 +38,12 @@
 			</view>
 		</view>
 
-		<view class="bg-white plr30 h80 fs22 flex a-center fw600">结算收入：￥39.00</view>
+		<view class="bg-white plr30 h80 fs26 flex a-center fw600">结算收入：￥39.00</view>
 		<view class="bg-white plr30 mb20">
 			<view class="flex ptb20r">
-				<view class="fw600 fs22 flex-item flex a-center j-center">我的订单收益</view>
+				<view class="fw600 fs26 flex-item flex a-center j-center">我的订单收益</view>
 				<view class="flex-item flex" style="justify-content: flex-end;">
-					<view class="flex a-center j-center w100 h40 radius30 fs22 ml20" style=" background-color: #FFD1D6; color: #F5465A;" @tap="openCheck">
+					<view  v-if="tabIndex==1" class="flex a-center j-center w100 h40 radius30 fs26 ml20" style=" background-color: #FFD1D6; color: #F5465A;" @tap="openCheck">
 						全部
 						<image src="../../../static/business/arrow-d.png" class="wh20 ml10"></image>
 					</view>
@@ -46,37 +51,37 @@
 			</view>
 			<view class="flex ptb30" style="border-bottom: 1px solid #f3f3f3;">
 				<view class="flex-item">
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">付款笔数</view>
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">3</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">付款笔数</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">3</view>
 				</view>
 				<view class="flex-item">
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">预估收益</view>
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">￥39.00</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">预估收益</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">￥39.00</view>
 				</view>
 			</view>
 
 			<view class="pt30 flex">
-				<view class="fw600 fs22 flex-item flex j-center">团队订单收益</view>
+				<view class="fw600 fs26 flex-item flex j-center">团队订单收益</view>
 				<view class="flex-item"></view>
 			</view>
 			<view class="flex ptb30">
 				<view class="flex-item">
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">付款笔数</view>
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">0</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">付款笔数</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">0</view>
 				</view>
 				<view class="flex-item">
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">预估收益</view>
-					<view class="flex a-center j-center fs22 mb20" style="color: #666666;">￥0.00</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">预估收益</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">￥0.00</view>
 				</view>
 			</view>
 		</view>
 		<view class="bg-white">
 			<navigator class="flex a-center h80 plr20" style="border-bottom: 1px solid #f3f3f3;" url="../balance/balance">
-				<text class="flex-item fs24">余额明细</text>
+				<text class="flex-item fs26">余额明细</text>
 				<view class="arrow-r"></view>
 			</navigator>
 			<navigator class="flex a-center h80 plr20" url="/pages/my/balanceWithdrawal/list/list">
-				<text class="flex-item fs24">提现记录</text>
+				<text class="flex-item fs26">提现记录</text>
 				<view class="arrow-r"></view>
 			</navigator>
 		</view>
@@ -89,19 +94,19 @@
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon1.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">全部订单</text>
+						<text class="flex j-center fs26">全部订单</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon2.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">苏宁</text>
+						<text class="flex j-center fs26">苏宁</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon3.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">饿了么</text>
+						<text class="flex j-center fs26">饿了么</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
@@ -113,43 +118,43 @@
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon10.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">附近小店</text>
+						<text class="flex j-center fs26">附近小店</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon5.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">VIP影视</text>
+						<text class="flex j-center fs26">VIP影视</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon7.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">天猫</text>
+						<text class="flex j-center fs26">天猫</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon11.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">阿里健康</text>
+						<text class="flex j-center fs26">阿里健康</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon8.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">9.9包邮</text>
+						<text class="flex j-center fs26">9.9包邮</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon9.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">充值话费</text>
+						<text class="flex j-center fs26">充值话费</text>
 					</view>
 					<view class="ptb20" style="width: 20%;">
 						<view class="flex j-center mb15">
 							<image src="../../../static/business/ordericon/ordericon6.png" class="wh70"></image>
 						</view>
-						<text class="flex j-center fs22">1元购</text>
+						<text class="flex j-center fs26">1元购</text>
 					</view>
 				</view>
 				<view class="flex a-center j-center fs30 h80 fw600" style="border-top: 1px solid #F2F2F2;" @tap="close">取消</view>
@@ -162,6 +167,7 @@
 export default {
 	data() {
 		return {
+			tabIndex:'1',
 			list: [
 				{
 					date: '今日',
@@ -195,12 +201,29 @@ export default {
 		},
 		close(){
 			this.platformCheck = false
+		},
+		async getBankInfo(type) {
+			const res = await this.post('/wap/Cis/union_sta',{type:type});
+			console.log(res.code)
+			// this.bankInfo = res.data.bank
+		},
+		// 判断分类
+		tab(indx){
+			this.tabIndex = indx;
+			if(indx==1){
+				this.getBankInfo(1);
+			}
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+	.profit-box{ 
+		justify-content:center; align-content:center; background: #fff; 
+		.item{ padding: 5px 15px; background: #B3B3B3; width: 90px; text-align: center; color:#fff; border-radius:15px; }
+		.item.action{ background: #EC3F3F; }
+	}
 .hover uni-text {
 	background-color: rgba(48, 7, 12, 0.2);
 }

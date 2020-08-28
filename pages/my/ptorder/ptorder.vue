@@ -73,10 +73,6 @@
 			</view>
 
 			<loading-more nomore-text="我是有底线的" :nomore="nomore" :list="list"></loading-more>
-
-			
-
-			
 		</page>
 	</view>
 </template>
@@ -169,6 +165,9 @@ export default {
 			}
 			if (!this.loaded) return;
 			this.getListInit();
+		},
+		confirm(e){
+			console.log(e)
 		}
 		//
 	}

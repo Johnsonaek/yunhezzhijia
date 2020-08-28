@@ -142,7 +142,7 @@
 		</view>
 		
 		
-		<view style="margin-bottom: 120rpx; position: fixed;" @click="goto('/pages/superior/cart/cart')" class="wh100 bg-black-50 radius50 abs absrb flex aj-center flex-column mr30">
+		<view style="margin-bottom: 120rpx; position: fixed; z-index: 99999;" @click="goto('/pages/superior/cart/cart')" class="wh100 bg-black-50 radius50 abs absrb flex aj-center flex-column mr30">
 			<text class="cuIcon-cart fs30 text-white"></text>
 			<view class="fs22 text-white">购物车</view>
 		</view>

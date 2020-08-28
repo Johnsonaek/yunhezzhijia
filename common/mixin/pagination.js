@@ -54,7 +54,6 @@ export default {
 				//this.list = [...this.list, ...res.result.items]
 				this.getListResult(res.data[this.listName])
 				
-				
 				this.loaded = true;
 			} catch (e) {
 				//TODO handle the exception

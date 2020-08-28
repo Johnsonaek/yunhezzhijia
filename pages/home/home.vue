@@ -12,11 +12,11 @@
 								:id="'tab_' + item.id"
 								style="width: 80px"
 								class="cu-item flex-sub text-white"
-								:class="index == TabCur ? 'text-red cur' : ''"
-								v-for="(item, index) in homeCategory"
-								:key="index"
+								:class="idx == TabCur ? 'text-red cur' : ''"
+								v-for="(item, idx) in homeCategory"
+								:key="idx"
 								@tap="tabSelect"
-								:data-id="index"
+								:data-id="idx"
 								:data-cid="item.id"
 							>
 								{{ item.name }}
@@ -40,7 +40,7 @@
 						interval="5000"
 						duration="500"
 					>
-						<swiper-item v-for="(item, index) in banner" :key="index">
+						<swiper-item v-for="(item, index1) in banner" :key="index1">
 							<view @click="openUrl(item.url)" class="radius12"><q-image :lazyLoad="false" :imgwh="[702, 262]" :isRatio="true" :src="item.path"></q-image></view>
 						</swiper-item>
 					</swiper>
@@ -48,9 +48,9 @@
 
 				<!-- 联盟图标 -->
 				<swiper class="screen-swiper bg-white" style="height: 380rpx;" :class="dotStyle ? 'square-dot' : 'round-dot'" :circular="false" :autoplay="false">
-					<swiper-item v-for="(item, index) in iconGroup" :key="index">
+					<swiper-item v-for="(item, index2) in iconGroup" :key="index2">
 						<view class="qui-grids column5 gutter20-tb plr20 bg-white pb30">
-							<view @click="goWhere(item2)" class="qui-grid" v-for="(item2, index) in item" :key="index">
+							<view @click="goWhere(item2)" class="qui-grid" v-for="(item2, index3) in item" :key="index3">
 								<q-image :src="item2.path"></q-image>
 								<view class="fs24 mt10 line1">{{ item2.name }}</view>
 							</view>
@@ -113,7 +113,7 @@
 					</view>
 					<view class="plr12 pb24" style="margin-top: -12rpx;">
 						<view class="qui-grids gutter12 column2">
-							<view @click="goto('/pages/business/list/list?action=' + item.action)" v-for="(item, index) in fxList" :key="index" class="qui-grid relative">
+							<view @click="goto('/pages/business/list/list?action=' + item.action)" v-for="(item, index4) in fxList" :key="index4" class="qui-grid relative">
 								<view class="block radius12"><q-image :imgwh="[340, 158]" :isRatio="true" :src="item.path"></q-image></view>
 							</view>
 						</view>
@@ -130,7 +130,7 @@
 					</view>
 					<view class="plr12 pb24" style="margin-top: -12rpx;">
 						<view class="qui-grids gutter12 column2">
-							<view @click="goto('/pages/superior/list/list?action=' + item.action)" v-for="(item, index) in dhList" :key="index" class="qui-grid relative">
+							<view @click="goto('/pages/superior/list/list?action=' + item.action)" v-for="(item, index5) in dhList" :key="index5" class="qui-grid relative">
 								<view class="block radius12"><q-image :imgwh="[340, 158]" :isRatio="true" :src="item.path"></q-image></view>
 							</view>
 						</view>
@@ -147,13 +147,13 @@
 					</view>
 					<view class="plr24 pb24">
 						<swiper style="height: 235rpx;" :class="true ? 'square-dot' : 'round-dot'" :indicator-dots="true" :circular="true" :autoplay="true">
-							<swiper-item v-for="(item, index) in businessBanner" :key="index">
+							<swiper-item v-for="(item, index6) in businessBanner" :key="index6">
 								<navigator hover-class="none" url="#"><q-image :lazyLoad="false" :imgwh="[702, 235]" :isRatio="true" :src="item.path"></q-image></navigator>
 							</swiper-item>
 						</swiper>
 						<!-- <view>dsfafsf</view> -->
-						<block v-for="(item, index) in list" :key="index">
-							<view @click="goto('/pages/business/shop/shop?id=' + item.id)" v-for="(item, index) in list" :key="index">
+						<block v-for="(item, index9) in list" :key="index9">
+							<view @click="goto('/pages/business/shop/shop?id=' + item.id)" v-for="(item, index8) in list" :key="index8">
 								<shop-item :itemData="item"></shop-item>
 							</view>
 						</block>
@@ -179,7 +179,7 @@
 					<view class="plr12 ptb12">
 						<qui-list :otherParams="otherParams" :autoLoad="false" ref="getList" getUrl="/wap/Coalition/ColumnList" v-slot="slotProps">
 							<view class="qui-grids column2 gutter12">
-								<view @click="goto('/pages/svideo/detail/detail?id=' + item.itemid)" class="qui-grid" v-for="(item, index) in slotProps.list" :key="index">
+								<view @click="goto('/pages/svideo/detail/detail?id=' + item.itemid)" class="qui-grid" v-for="(item, index10) in slotProps.list" :key="index10">
 									<view class="block tl bg-white radius20 shadow">
 										<view class=""><q-image :isRatio="true" :src="item.itempic"></q-image></view>
 										<view class="plr20 ptb20">
@@ -288,14 +288,11 @@ export default {
 	},
 	methods: {
 		goWhere(item) {
-			
-			
 		    if(item.id == 21) {
 				// 跳到自营商城的特殊处理
 				this.goTab('superior')
-				return
+				return	
 			}
-			
 			console.log(item);
 			uni.navigateTo({
 				url: item.url

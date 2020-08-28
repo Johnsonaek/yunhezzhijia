@@ -138,7 +138,7 @@ export default {
 		},
 		// 取消全选
 		unSelectAll(state) {
-			state.cartList.forEach(v => {
+			state.cartList.forEach(v => {                          
 				// 设置选中状态
 				v.is_selected = false
 			})

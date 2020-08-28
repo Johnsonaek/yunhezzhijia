@@ -140,6 +140,7 @@ export default {
 	},
 	onLoad(e) {
 		this.id = e.id
+		this.goodtype = e.goodtype;
 		this.getDetail()
 		
 	},
@@ -151,7 +152,7 @@ export default {
 			console.log(res);
 		},
 		async getDetail(){
-			const res = await this.post('/wap/Coalition/ItemDetail',{itemid: this.id})
+			const res = await this.post('/wap/Coalition/ItemDetail',{itemid: this.id,goodtype:this.goodtype})
 			console.log(res)
 			if(res.code == 200) {
 				this.banner.push({path:res.data.itempic})

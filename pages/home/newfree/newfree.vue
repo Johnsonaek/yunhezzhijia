@@ -5,7 +5,7 @@
 			
 			 <empty v-if="list.length === 0 && loaded"></empty>
 			 <view class="loading ptb30" v-if="!loaded"></view>
-		    <view @click="goto('/pages/svideo/detail/detail?id='+item.itemid)" class="qui-card flex plr30 ptb30" v-for="(item,index) in list" :key="index">
+		    <view @click="goto('/pages/svideo/detail/detail?id='+item.itemid+'&goodtype='+item.goodtype)" class="qui-card flex plr30 ptb30" v-for="(item,index) in list" :key="index">
 				<view class="mr20">
 					<q-image :lazyLoad="false" :isRatio="false" :imgwh="[180,180]" :src="item.itempic"></q-image>
 				</view>
@@ -16,7 +16,7 @@
 					</view>
 					<view class="flex mt20 a-center">
 						<view class="flex-item">
-							仅剩 <text class="text-red">{{item.couponsurplus}}</text>单 {{item.goods_id}}
+							仅剩 <text class="text-red">{{item.couponsurplus}}</text>单 <!-- {{item.goods_id}} -->
 						</view>
 						<view class="qui-btn inline round h50 fs24">
 							立即元抢

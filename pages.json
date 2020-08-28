@@ -735,6 +735,22 @@
             "path" : "pages/poster/goodsPoster",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/myStore/goldred/goldred",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/encourage/encourage",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/consumption/consumption",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/myStore/rules/rules",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle":"white",  //状态栏字体颜色
