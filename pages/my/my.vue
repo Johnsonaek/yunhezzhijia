@@ -19,7 +19,7 @@
 							<text v-if="userInfo.nickname" class="fs36 mr20">{{ userInfo.nickname }}</text>
 							<text v-else class="fs36 mr20">{{ userInfo.mobile }}</text>
 							<text class="bg-black plr20 ptb5 radius10">
-								<text v-if="userInfo.level_type == 1" class="vip-text fs22">达人</text>
+								<text v-if="userInfo.level_type == 1" class="vip-text fs22">合粉达人</text>
 								<text v-if="userInfo.level_type == 2" class="vip-text fs22">VIP</text>
 								<text v-if="userInfo.level_type == 3" class="vip-text fs22">合伙人</text>
 							</text>
@@ -116,7 +116,7 @@
 
 		<!-- 必备工具 -->
 		<view class="qui-card mlr24 mtb24">
-			<view class="card-hd bor-1px-b pt20 pb20"><text class="fs32 fw600">云合线下工具</text></view>
+			<view class="card-hd bor-1px-b pt20 pb20"><text class="fs32 fw600">会员线下工具</text></view>
 			<view class="qui-grids column4 gutter30">
 				<navigator v-if="userInfo.is_line_shop>0" url="/pages/my/myStore/myStore" class="qui-grid">
 					<image class="wh64 block" src="/static/my/my10.png"></image>
@@ -144,7 +144,7 @@
 
 		<!-- 云合线下工具 -->
 		<view class="qui-card mlr24 mtb24">
-			<view class="card-hd bor-1px-b pt20 pb20"><text class="fs32 fw600">云合线上工具</text></view>
+			<view class="card-hd bor-1px-b pt20 pb20"><text class="fs32 fw600">会员线上工具</text></view>
 			<view class="qui-grids column4 gutter30">
 				<navigator url="/pages/my/yh-store/yh-store" class="qui-grid">
 					<image class="wh64 block" src="/static/my/my14.png"></image>
@@ -301,6 +301,8 @@ export default {
 				}
 			})
 		}, 50)
+		
+		this.getUserRecord()
 	},
 	onPageScroll(e) {
 		let scroll = e.scrollTop <= 0 ? 0 : e.scrollTop;
@@ -324,6 +326,10 @@ export default {
 					});
 				}
 			});
+		},
+		getUserRecord(){
+			
+			console.log(1)
 		}
 	}
 };

@@ -6,7 +6,7 @@
 				<qui-search url="/pages/business/search/search">
 					<view class="cuIcon-close fs34 mr20"></view>
 					<view v-if="Location" @click="goto('/pages/business/address-list/address-list')" slot="left" class="line1 mr20" style="max-width: 280rpx;">
-						<text>{{ Location.address.city }}</text>
+						<!-- <text>{{ Location.address.city }}</text> -->
 						<text class="cuIcon-unfold ml10"></text>
 					</view>
 				</qui-search>

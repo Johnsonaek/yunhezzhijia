@@ -1,4 +1,4 @@
-{
+	{
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index", //首页
@@ -749,6 +749,16 @@
         }
         ,{
             "path" : "pages/my/myStore/rules/rules",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/home/jiayou/jiayou",
+            "style" : {
+				"enablePullDownRefresh": true
+			}
+        }
+        ,{
+            "path" : "pages/home/jiayou/gasStationDetails/gasStationDetails",
             "style" : {}
         }
     ],

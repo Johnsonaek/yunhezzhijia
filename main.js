@@ -1,4 +1,9 @@
 import Vue from 'vue'
+
+//引入element ui
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 import App from './App'
 import store from "./store"
 Vue.prototype.$store = store
@@ -15,6 +20,9 @@ Vue.prototype.post = post
 Vue.prototype.get = get
 Vue.prototype._delete = _delete
 Vue.prototype.put = put
+
+
+Vue.use(ElementUI);
 
 
 

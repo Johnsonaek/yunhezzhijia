@@ -69,6 +69,28 @@
 			},
 			async GoldRed() {
 				let me = this;
+				if(!me.form.hongbai_amount){
+					uni.showToast({
+						title:'请输入投放红包金额',
+						icon:'none'
+					})
+					return;
+				}
+				if(!me.form.num){
+					uni.showToast({
+						title:'请输入投放红包金额',
+						icon:'none'
+					})
+					return;
+				}
+				if(!me.form.time_length){
+					uni.showToast({
+						title:'请输入投放时间(最长24小时)',
+						icon:'none'
+					})
+					return;
+				}
+				
 				const res = await this.post('/wap/Line/send_red_bag', this.form);
 				if (res.code == 200) {
 					me.updatePathList();

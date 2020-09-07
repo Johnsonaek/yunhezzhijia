@@ -37,6 +37,14 @@
 						<view class="mt20 text-muted">示例</view>
 					</view>
 				</view>
+				<view class="qui-cell">
+					<view class="w180 mr10">店铺类型</view>
+					<view class="cell-bd">
+						<picker @change="bindPickerChange" :range="array">
+							<label class="">{{array[index]}}</label>		
+						</picker>
+					</view>
+				</view>
 			</view>
 
 			<view class="qui-cells-title"><text>法定代表人信息</text></view>
@@ -76,10 +84,10 @@
 					<view class="cell-bd flex">{{ pickerText }}</view>
 					<view class="arrow-r"></view>
 				</view>
-				<view class="qui-cell">
+				<!-- <view class="qui-cell">
 					<view class="w180 mr10">联系地址</view>
 					<view class="cell-bd"><input type="text" value="" placeholder="联系地址" /></view>
-				</view>
+				</view> -->
 				<view class="qui-cell">
 					<view class="cell-bd"><input v-model="form.street" type="text" value="" placeholder="输入详细商家地址" /></view>
 				</view>
@@ -109,6 +117,8 @@ export default {
 	},
 	data() {
 		return {
+			array:['--请选择--'],
+			index:0,
 			form: {
 				category_id: '',
 				company: '',
@@ -145,6 +155,12 @@ export default {
 		})
 	},
 	methods: {
+		bindPickerChange: function(e) {		
+			this.index = e.target.value		
+				console.log(e)
+			this.jg=this.array[this.index]		
+		},
+		// 获取店铺分类
 		submit() {
 			// uni.navigateTo({
 			// 	url: '/pages/my/storeSettlein/status/status'
@@ -153,7 +169,14 @@ export default {
 			this.apply()
 		},
 		async getInfo() {
-			const res = await this.post('/wap/Line/applyInfo')
+			const res = await this.post('/wap/Line/applyInfo');
+			const shopCate = await this.post('/wap/Line/get_shop_cate');
+			let me = this;
+			console.log(shopCate.data.length,'shopCate')
+			shopCate.data.forEach(function(val, index, arr){
+				me.array.push(val.name);
+			});
+			
 			this.form.charter = res.data.charter
 			this.$refs.imgPicker.imgs.push('/static/images/default-tx.png')
 			console.log(this.$refs.imgPicker.imgs[0])
