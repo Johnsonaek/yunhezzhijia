@@ -1,8 +1,22 @@
 <template>
 	<view>
+		<el-dialog  :visible.sync="dialogTableVisible" :show-close="false">
+			<view class="share">
+				<view class="share_way">
+					<image src="../../../static/business/share/bchb.png"></image>
+					<view class="title">生成海报</view>
+				</view>
+				<view class="share_way" v-clipboard:success="copy"  v-clipboard:copy="message">
+					<image src="../../../static/business/share/bclj.png"></image>
+					<view class="title" >生成链接</view>
+				</view>
+			</view>
+			<view class="btn" @click="dialogTableVisible = false">取消</view>
+		</el-dialog>
 		<page title=" " :headbor="false">
+			
 			<view class="" slot="right">
-				<text class="cuIcon-share"></text>
+				<text class="cuIcon-share" @click="dialogTableVisible = true"></text>
 				<!-- <text class="cuIcon-favor ml30"></text> -->
 			</view>
 			<view class="qui-cells" style="margin-top: -30rpx;">
@@ -32,8 +46,8 @@
 			<view class="loading ptb30" v-if="!loaded"></view>
 			<view class="qui-cells">
 				<view @click="goto('/pages/business/detail/detail?id='+item.id)" class="qui-cell" v-for="(item, index) in list" :key="index">
-					<q-image :lazyLoad="true" :isRatio="false" :imgwh="[200, 200]" :src="item.path"></q-image>
-					<view class="cell-bd ml30">
+					<q-image :lazyLoad="true" :isRatio="false" :imgwh="[200, 200]" :src="item.path" class="goods_img"></q-image>
+					<view class="cell-bd ml30 goods_info">
 						<view class="fs32 fw600">{{item.name}}</view>
 						<view class="fs24 mt20 text-gray line1">{{item.commissionDescription}}</view>
 						<view class="mt10 text-gray fs24">
@@ -44,13 +58,14 @@
 							<text style="white-space: nowrap;" class="plr10 ptb5 bg-red light fs24 radius10 mr20 mb20">返佣 ￥{{item.commissionAmount | tofix}}</text>
 							<text style="white-space: nowrap;"  class="plr10 ptb5 bg-red light fs24 radius10 mr20">分享赚 ￥{{(item.inciteRate*item.price).toFixed(2)}}</text>
 						</view>
+						<view class="ml30 pt50 goods_qg">
+							<view class="pt50 fs24 goods_price">
+								<text class="text-red ">￥{{item.price}}</text>
+								/一份
+							</view>
+							<view class="qui-btn round inline h50 w140 mt20 small">抢购</view>
 					</view>
-					<view class="ml30 pt50">
-						<view class="pt50 fs24">
-							<text class="text-red">￥{{item.price}}</text>
-							/一份
-						</view>
-						<view class="qui-btn round inline h50 w140 mt20 small">抢购</view>
+					
 					</view>
 				</view>
 			</view>
@@ -69,11 +84,13 @@ export default {
 	},
 	data() {
 		return {
+			message:location.href,
 			getUrl: '/wap/LineGoods/List',
 			autoLoad: false,
 			detail: {},
 			TabCur: 0,
 			scrollLeft: 0,
+			dialogTableVisible:false,
 			tabBars: [
 				{
 					name: '套餐',
@@ -101,6 +118,13 @@ export default {
 		}
 	},
 	methods: {
+		copy(){
+			this.dialogTableVisible = false
+			uni.showToast({//提示
+			  title:"链接复制成功"
+			})
+			 
+		},
 		call(num) {
 			uni.makePhoneCall({
 			    phoneNumber: num
@@ -125,4 +149,50 @@ export default {
 };
 </script>
 
-<style></style>
+<style  lang="scss">
+	/deep/ uni-image{
+		img{
+			width: 200rpx !important;
+			height: 200rpx !important;
+		}
+	}
+	/deep/ .goods_info{
+		margin: 0 !important;
+		margin-left: 20rpx !important;
+	}
+	
+	.goods_qg{
+		display: flex;
+		align-items: center;
+		margin: 0 !important;
+		padding: 0 !important;
+		.goods_price{
+			margin: 0 !important;
+			padding: 0 !important;
+			margin-right: 60rpx !important;
+		}
+	}
+	
+	/deep/ .el-dialog{
+		margin-top: 440rpx !important;
+		width: 600rpx;
+		.share{
+			display: flex;
+			justify-content: space-around;
+			image{
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
+		.btn{
+			margin: 0 auto;
+			margin-top: 60rpx;
+			width: 400rpx;
+			height: 60rpx;
+			line-height: 60rpx;
+			border: 1rpx solid #606266;
+			text-align: center;
+		}
+		
+	}
+</style>

@@ -22,11 +22,11 @@
 							{{LocateTheAddress}}
 						<view>></view>
 					</view>
-					 <ms-tabs :list="list2" 
-					 v-model="active" 
-					 lineColor="#F82840" 
-					 itemColor="#F82840" >
-					 </ms-tabs>
+						 <ms-tabs :list="list2" 
+						 v-model="active" 
+						 lineColor="#F82840" 
+						 itemColor="#F82840" >
+						 </ms-tabs>
 				</view>
 				
 				<view class="jycontent" v-if="active == 0">

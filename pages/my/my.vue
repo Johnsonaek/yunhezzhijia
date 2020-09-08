@@ -11,7 +11,7 @@
 				
 				<view class="flex plr30 pb30 text-white a-center">
 					<navigator url="/pages/my/setting/set" class="mr30">
-						<image v-if="userInfo.headimgurl !== ''" class="wh140 radius50" :src="userInfo.headimgurl" mode="widthFix"></image>
+						<image v-if="userBenefits_info.headimgurl !== ''" class="wh140 radius50" :src="userBenefits_info.headimgurl" mode="widthFix"></image>
 						<image v-else class="wh140 radius50" src="/static/images/default-tx.png" mode="widthFix"></image>
 					</navigator>
 					<view class="flex-item">
@@ -38,7 +38,7 @@
 				<view>
 					<view class="fs26">
 						账户可用余额
-						<text class="fs28 fw600">￥0.00</text>
+						<text class="fs28 fw600">￥{{userBenefits_info.amount}}</text>
 					</view>
 					<!-- <view class="text-gray fs24 mt5">每月25号结算上月收益</view> -->
 				</view>
@@ -51,19 +51,19 @@
 					<view class="fs26 mt20">今日预估</view>
 				</navigator>
 				<view class="qui-grid">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">x</view>
 					<view class="fs26 mt20">今日销售</view>
 				</view>
 				<view class="qui-grid">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">x</view>
 					<view class="fs26 mt20">累计销售</view>
 				</view>
 				<view class="qui-grid">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">x</view>
 					<view class="fs26 mt20">累计订单</view>
 				</view>
 				<navigator class="qui-grid" url="/pages/my/encourage/encourage">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">{{userBenefits_info.incentive_amount || x}}</view>
 					<view class="fs26 mt20">鼓励金</view>
 				</navigator>
 				<navigator class="qui-grid" url="/pages/my/profit/profit">
@@ -71,11 +71,11 @@
 					<view class="fs26 mt20">累计收益</view>
 				</navigator>
 				<navigator class="qui-grid" url="/pages/my/consumption/consumption">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">{{userBenefits_info.coupon_amount || x}}</view>
 					<view class="fs26 mt20">消费劵</view>
 				</navigator>
 				<navigator class="qui-grid" url="/pages/my/yunfenhong/yunfenhong">
-					<view class="fs36 num">100</view>
+					<view class="fs36 num">{{userBenefits_info.bonus_amount || x}}</view>
 					<view class="fs26 mt20">红利宝</view>
 				</navigator>
 			</view>
@@ -279,6 +279,7 @@ export default {
 			nVueTitle: null
 		};
 	},
+	props:['userBenefits_info'],
 	computed: {
 		...mapState({
 			PageCur: 'PageCur',
@@ -303,6 +304,8 @@ export default {
 		}, 50)
 		
 		this.getUserRecord()
+		
+		console.log(this.userBenefits_info)
 	},
 	onPageScroll(e) {
 		let scroll = e.scrollTop <= 0 ? 0 : e.scrollTop;
@@ -317,6 +320,7 @@ export default {
 		}
 	},
 	methods: {
+		
 		paste(value) {
 			uni.setClipboardData({
 				data: value,

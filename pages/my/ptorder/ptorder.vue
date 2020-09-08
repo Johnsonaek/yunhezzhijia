@@ -148,8 +148,13 @@ export default {
 		this.params.action = 2
 		this.params.lineShopId = 4
 		this.getListInit()
+		this.getOrderList()
 	},
 	methods: {
+		async getOrderList(){
+			const res = await this.post('/wap/LeagueOrder/Orderlist',{source:1,currentPage:1,pageSize:10})
+			console.log(res)
+		},
 		teamActive(numb) {
 			for (let i in this.teamlist) {
 				this.teamlist[i].teamActive = false;

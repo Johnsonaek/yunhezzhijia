@@ -1,8 +1,21 @@
 <template>
 	<view>
+		<el-dialog  :visible.sync="dialogTableVisible" :show-close="false">
+			<view class="share">
+				<view class="share_way">
+					<image src="../../../static/business/share/bchb.png"></image>
+					<view class="title">生成海报</view>
+				</view>
+				<view class="share_way" v-clipboard:success="copy"  v-clipboard:copy="message">
+					<image src="../../../static/business/share/bclj.png"></image>
+					<view class="title" >生成链接</view>
+				</view>
+			</view>
+			<view class="btn" @click="dialogTableVisible = false">取消</view>
+		</el-dialog>
 		<page title=" " :headbor="false">
 			<view class="" slot="right">
-				<text class="cuIcon-share"></text>
+				<text class="cuIcon-share" @click="dialogTableVisible = true"></text>
 				<!-- <text class="cuIcon-favor ml30"></text> -->
 			</view>
 			
@@ -41,7 +54,7 @@
 				</view>
 				<view class="card-bd pt0 pb40">
 					
-					<view :nodes="html" style="line-height: 1.8em;">
+					<view  style="line-height: 1.8em;">
 						<rich-text :nodes="detail.commissionDescription"></rich-text>
 					</view>
 					                            
@@ -69,6 +82,8 @@
 		
 		data() {
 			return {
+				dialogTableVisible:false,
+				message:location.href,
 			   detail: {}
 			}
 		},
@@ -77,6 +92,13 @@
 			this.getDetail()
 		},
 		methods: {
+			copy(){
+				this.dialogTableVisible = false
+				uni.showToast({//提示
+				  title:"链接复制成功"
+				})
+				 
+			},
 			call(num) {
 				uni.makePhoneCall({
 				    phoneNumber: num
@@ -93,6 +115,27 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+/deep/ .el-dialog{
+	margin-top: 440rpx !important;
+		width: 600rpx;
+		.share{
+			display: flex;
+			justify-content: space-around;
+			image{
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
+		.btn{
+			margin: 0 auto;
+			margin-top: 60rpx;
+			width: 400rpx;
+			height: 60rpx;
+			line-height: 60rpx;
+			border: 1rpx solid #606266;
+			text-align: center;
+		}
+		
+	}
 </style>

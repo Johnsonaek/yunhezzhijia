@@ -21,6 +21,8 @@ Vue.prototype.get = get
 Vue.prototype._delete = _delete
 Vue.prototype.put = put
 
+import VueClipboard from 'vue-clipboard2' 
+Vue.use(VueClipboard);
 
 Vue.use(ElementUI);
 

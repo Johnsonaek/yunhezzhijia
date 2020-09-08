@@ -12,15 +12,18 @@
 			
 			<view class="gasStation_details">
 				<view class="conten_top">
-					<image src="../../../../static/home/jiayou/tx.jpg" class="gasStation_img"></image>
+					<view class="gasStation_img">
+						<image src="../../../../static/home/jiayou/tx.jpg"></image>
+					</view>
 					<view class="top_information">
-						<view class="gasStation_name">海湾石油光临黄村加油站</view>
+						<view class="gasStation_name">{{oilList.gasName}}</view>
 						<view class="gasStation_dingwei">
 							<image src="../../../../static/home/jiayou/hdingwei.png"></image>
 							<view>广东省广州市天河区中山大道666号</view>
 						</view>
 						<view class="oilprice">
-							<view class="number">￥5.08</view>
+							<view class="number_icon">￥</view>
+							<view class="number">5.08</view>
 							<view class="price_gj">比国价降0.63元</view>
 							<view class="price_yz">比油站降0.63元</view>
 						</view>
@@ -43,19 +46,21 @@
 				<view class="choose_goods">
 					<view class="title">选择商品：</view>
 					<view class="goods_list">
-						<view class="goods_item item">汽油</view>
+						<view :class="{goods_item:true,item:true,choose:index == olinameShow }" v-for="(item,index) in oliname" :key="index" @click="olinamechange(index)">
+							{{item}}
+						</view>
 					</view>
 				</view>
 				<view class="choose_oilnumber">
 					<view class="title">选择油号：</view>
 					<view class="oilnumber_list">
-						<view class="oilnumber_item item" v-for="(item,index) in oilnumberList" :key="index">{{item}}#</view>
+						<view :class="{goods_item:true,item:true,choose:index == oliNoShow }" v-for="(item,index) in oliNoList" :key="index" @click="oliNochange(index)">{{item}}</view>
 					</view>
 				</view>
 				<view class="choose_oilgun">
 					<view class="title">选择枪号：</view>
 					<view class="oilgun_list">
-						<view class="oilgun_item item" v-for="(item,index) in oilgunList" :key="index">{{item}}号</view>
+						<view :class="{goods_item:true,item:true,choose:index == gunisShow }" v-for="(item,index) in gunList" :key="index" @click="gunchange(index)">{{item}}号</view>
 					</view>
 				</view>
 
@@ -72,29 +77,88 @@
 	export default {
 		data() {
 			return {
-				oilnumberList:[92,95],
-				oilgunList:[1,3,4,6],
-				gasIds:''
+				oliname:[],
+				olinameShow:0,
+				oliNoList:[],
+				oliNoShow:0,
+				gunList:[],
+				gunisShow:0,
+				gasIds:'',
+				oilList:[]
 			}
 		},
 		onLoad(options) {
 			this.gasIds = options.gasIds
+			// this.login()
 			this.getOliMessage()
-			this.login()
+			
 			
 		},
 		methods: {
 			async getOliMessage(){
 				//获取加油站数据
-				
 				const res = await this.post('/wap/Coalition/CzbQueryPriceByPhone	',{gasIds:this.gasIds})
-				console.log(res)
-			},
-			async login(){
-				//获取加油站数据
+				this.oilList = res.data.list[0]
+				console.log(this.oilList.oilPriceList)
+				for(let i = 0;i < this.oilList.oilPriceList.length;i++){
+					if(this.oilList.oilPriceList[i].oilType == 1 && this.oliname.indexOf('汽油') == -1){
+						this.oliname.push('汽油')
+					}
+					if(this.oilList.oilPriceList[i].oilType == 2 && this.oliname.indexOf('柴油油') == -1){
+						this.oliname.push('柴油')
+					}
+					if(this.oilList.oilPriceList[i].oilType == 3 && this.oliname.indexOf('LLNG') == -1){
+						this.oliname.push('LNG')
+					}
+					if(this.oilList.oilPriceList[i].oilType == 4 && this.oliname.indexOf('CNG') == -1){
+						this.oliname.push('CNG')
+					}
+				}
+				let type = Number
+				if(this.oliname[0] == '汽油'){
+					type = 1
+				}else if(this.oliname[0] == '柴油'){
+					type = 2
+				}else if(this.oliname[0] == 'LNG'){
+					type = 3
+				}else{
+					type = 4
+				}
+				for(let i = 0;i < this.oilList.oilPriceList.length;i++){
+					if(this.oilList.oilPriceList[i].oilType == type){
+						this.oliNoList.push(this.oilList.oilPriceList[i].oilName)
+						this.gunList.push(this.oilList.oilPriceList[i].gunNos[0].gunNo)
+					}
+				}
 				
-				const res = await this.post('/wap/Coalition/CzbSecretCode',{phone:13427573606})
-				console.log(res)
+			},
+		
+			olinamechange(index){
+				this.olinameShow = index
+				let type = Number
+				if(this.oliname[index] == '汽油'){
+					type = 1
+				}else if(this.oliname[index] == '柴油'){
+					type = 2
+				}else if(this.oliname[index] == 'LNG'){
+					type = 3
+				}else{
+					type = 4
+				}
+				this.oliNoList = []
+				this.gunList = []
+				for(let i = 0;i < this.oilList.oilPriceList.length;i++){
+					if(this.oilList.oilPriceList[i].oilType == type){
+						this.oliNoList.push(this.oilList.oilPriceList[i].oilName)
+						this.gunList.push(this.oilList.oilPriceList[i].gunNos[0].gunNo)
+					}
+				}
+			},
+			oliNochange(index){
+				this.oliNoShow = index
+			},
+			gunchange(index){
+				this.gunisShow = index
 			}
 		}
 	}
@@ -130,23 +194,29 @@
 	}
 	
 	.gasStation_details{
+		box-sizing: border-box;
 		overflow: hidden;
 		margin-top: 30rpx;
 		height: 360rpx;
 		background-color: #FFFFFF;
 		border-radius: 10rpx;
-		margin-left: 24rpx;
-		margin-right: 24rpx;
+		margin-left: 18rpx;
+		margin-right: 18rpx;
 		.conten_top{
 			display: flex;
-			margin: 25rpx 0 0 18rpx;
+			margin: 25rpx 0 0 12rpx;
 			.gasStation_img{
-				width: 98rpx;
-				height: 98rpx;
+				width: 80rpx;
+				height: 80rpx;
 				border-radius: 50%;
-				margin-right: 30rpx;
+				image{
+					width: 100%;
+					height: 100%;
+					border-radius: 50%;
+				}
 			}
 			.top_information{
+				padding-left: 6rpx;
 				.gasStation_name{
 					color: #333333;
 					font-weight: 600;
@@ -170,31 +240,36 @@
 					margin-top: 24rpx;
 					display: flex;
 					align-items: center;
+					.number_icon{
+						color: #F82840;
+						font-size: 28rpx;
+					}
 					.number{
 						font-weight: 600;
+						font-size: 40rpx;
 						color: #F82840;
 						margin-right: 10rpx;
 					}
 					.price_gj{
-						font-size: 8rpx;
+						font-size: 20rpx;
 						color: #F82840;
-						width: 220rpx;
+						width: 240rpx;
 						height: 40rpx;
 						line-height: 40rpx;
-						padding-left: 42rpx;
+						padding-left: 56rpx;
 						background: url(../../../../static/home/jiayou/zhu.png);
-						background-size: 220rpx 40rpx;
+						background-size: 240rpx 40rpx;
 						margin-right: 10rpx;
 					}
 					.price_yz{
-						font-size: 8rpx;
+						font-size: 20rpx;
 						color: #F82840;
-						width: 220rpx;
+						width: 240rpx;
 						height: 40rpx;
 						line-height: 40rpx;
-						padding-left: 42rpx;
+						padding-left: 56rpx;
 						background: url(../../../../static/home/jiayou/zhu.png);
-						background-size: 220rpx 40rpx;
+						background-size: 240rpx 40rpx;
 					}
 				}
 				.time{
@@ -247,7 +322,12 @@
 			border-radius: 8rpx;
 			margin-right: 20rpx;
 		}
+		.choose{
+			border: 1rpx solid #E11A31;
+			color: #E11A31;
+		}
 		.choose_goods{
+			
 			.goods_list{
 				margin: 20rpx 0 20rpx 0;
 				display: flex;

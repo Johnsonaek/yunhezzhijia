@@ -5,6 +5,7 @@
 			<qui-search slot="top" url="/pages/superior/search/search">
 				<navigator url="/pages/superior/cart/cart" slot="right" class="ml20"><text class="cuIcon-cart fs50"></text></navigator>
 			</qui-search>
+			
 			<scroll-view slot="top" scroll-x class="bg-white nav superior_nav" scroll-with-animation :scroll-left="scrollLeft">
 				<view class="flex text-center">
 					<view class="cu-item flex-sub" :class="index == TabCur ? 'text-red cur' : ''" v-for="(item, index) in tabBars" :key="index" @tap="tabSelect" :data-cid="item.id" :data-id="index">
@@ -133,7 +134,16 @@ export default {
 			this.init();
 		}
 	},
+	onLoad(){
+		this.getBanner()
+		this.getGoodsCat(0,1)
+		
+	},
 	methods: {
+		async getGoodsClassiFication(){
+			const res = await this.post('/wap/Supply/getGoodsCat')
+			console.log(res)
+		},
 		async getBanner() {
 			const res = await this.post('/wap/MallBanner/bannerList')
 			this.banner = res.data.list
@@ -144,6 +154,7 @@ export default {
 		},
 		// 切换选项卡
 		tabSelect(e) {
+			console.log(e.currentTarget.dataset.id)
 			this.TabCur = e.currentTarget.dataset.id;
 			let cid = e.currentTarget.dataset.cid;
 			this.scrollLeft = (e.currentTarget.dataset.id - 1) * 100;

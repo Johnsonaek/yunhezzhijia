@@ -12,6 +12,7 @@
   "dependencies": {
     "element-ui": "^2.13.2",
     "moment": "^2.27.0",
-    "uview-ui": "^1.2.8"
+    "uview-ui": "^1.2.8",
+    "vue-clipboard2": "^0.3.1"
   }
 }

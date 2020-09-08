@@ -294,6 +294,10 @@ export default {
 				return	
 			}
 			console.log(item);
+				
+			if(item.id == 15){
+				location.href = 'https://www.ctrip.com/?AllianceID=1246422&sid=3012593&ouid=&app=0101F00'
+			}
 			uni.navigateTo({
 				url: item.url
 			});

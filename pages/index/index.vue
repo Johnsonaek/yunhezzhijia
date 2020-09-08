@@ -20,7 +20,7 @@
 		<view v-show="PageCur == 'business'" :class="{ hidepage: PageCur !== 'business' }"><business></business></view>
 		<view v-show="PageCur == 'svideo'" :class="{ hidepage: PageCur !== 'svideo' }"><svideo></svideo></view>
 		<view v-show="PageCur == 'superior'" :class="{ hidepage: PageCur !== 'superior' }"><superior></superior></view>
-		<view v-show="PageCur == 'my'" :class="{ hidepage: PageCur !== 'my' }"><my></my></view>
+		<view v-show="PageCur == 'my'" :class="{ hidepage: PageCur !== 'my' }"><my :userBenefits_info="userBenefits_info" v-if="userBenefits_info != null"></my></view>
 		<view v-if="!logined && PageCur == 'home'" class="flex unlogin a-center">
 			<view class="flex-item pl20">登录账户领取海量优惠券</view>
 			<navigator hover-class="none" url="/pages/login/login" class="qui-btn inline small h60 round">去登录</navigator>
@@ -76,7 +76,8 @@ export default {
 					text: '我的',
 					name: 'my'
 				}
-			]
+			],
+			userBenefits_info:null
 		};
 	},
 	computed: {
@@ -99,6 +100,11 @@ export default {
 				this.$refs.popup.open();
 			}
 		});
+		
+		
+		this.getUserBenefits()
+		
+		
 	},
 	onShow() {
 		let token = uni.getStorageSync('token');
@@ -109,9 +115,16 @@ export default {
 			this.logined = false;
 		}
 		this.getLocation();
+		
 	},
 	methods: {
-		...mapMutations(['initUser', 'resetLocation', 'initHomeCategory', 'initBusinessCategory', 'vlogin', 'initNav'])
+		...mapMutations(['initUser', 'resetLocation', 'initHomeCategory', 'initBusinessCategory', 'vlogin', 'initNav']),
+		async getUserBenefits(){
+			const res = await this.post('/wap/Cis/userInfo')
+			this.userBenefits_info = res.data.user_info
+			console.log(this.userBenefits_info)
+		},
+		
 	},
 	watch: {
 		PageCur(newName, oldName) {
@@ -123,7 +136,8 @@ export default {
 		},
 		Location(newName, oldName) {
 			console.log('地区改变了');
-		}
+		},
+		
 	}
 };
 </script>

@@ -5,12 +5,12 @@
 			<view :class="[tabIndex==2?'item mlr10 action':'item mlr10']" @click="tab(2)">云合优品</view>
 			<view :class="[tabIndex==3?'item mlr10 action':'item mlr10']" @click="tab(3)">线下门店</view>
 		</view>
-		<view class="bg-white ptb30">
+		<view class="bg-white ptb30" v-if="earningsReport != null">
 			<view class="radius10 mlr20 plr30 pt30 pb50" style="background: url(../../../static/business/profit_head.png) no-repeat center center;background-size: cover;">
 				<view class="flex mb30">
 					<view class="flex-item">
 						<view class="fs22 text-white mb20">用户余额（元）</view>
-						<text class="fs40 text-white fw600">2000.00</text>
+						<text class="fs40 text-white fw600">{{earningsReport.amount}}</text>
 					</view>
 					<view class="w200 flex a-center" style="justify-content: flex-end; ">
 						<navigator url="../balanceWithdrawal/balanceWithdrawal" class="bg-white radius30 w100 h50 flex a-center j-center fs24" style="color: #F82840;">提现</navigator>
@@ -19,7 +19,7 @@
 				<view class="flex">
 					<view class="flex-item">
 						<view class="flex a-center j-center text-white fs22 mb20">累计收益</view>
-						<text class="flex a-center j-center text-white fs30 fw600">1800.00</text>
+						<text class="flex a-center j-center text-white fs30 fw600">{{earningsReport.total_income}}</text>
 					</view>
 					<view class="flex-item">
 						<view class="flex a-center j-center text-white fs22 mb20">已提现(元)</view>
@@ -38,8 +38,8 @@
 			</view>
 		</view>
 
-		<view class="bg-white plr30 h80 fs26 flex a-center fw600">结算收入：￥39.00</view>
-		<view class="bg-white plr30 mb20">
+		<view class="bg-white plr30 h80 fs26 flex a-center fw600" v-if="earningsReport != null">结算收入：￥{{earningsReport.cur_income}}</view>
+		<view class="bg-white plr30 mb20" v-if="earningsReport != null">
 			<view class="flex ptb20r">
 				<view class="fw600 fs26 flex-item flex a-center j-center">我的订单收益</view>
 				<view class="flex-item flex" style="justify-content: flex-end;">
@@ -52,7 +52,8 @@
 			<view class="flex ptb30" style="border-bottom: 1px solid #f3f3f3;">
 				<view class="flex-item">
 					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">付款笔数</view>
-					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">3</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;" v-if="earningsReport.my_has_pay_order_num != undefined ">{{earningsReport.my_has_pay_order_num}}</view>
+					<view class="flex a-center j-center fs26 mb20" style="color: #666666;" v-else>暂无数据</view>
 				</view>
 				<view class="flex-item">
 					<view class="flex a-center j-center fs26 mb20" style="color: #666666;">预估收益</view>
@@ -186,8 +187,13 @@ export default {
 					isActive: false
 				}
 			],
-			platformCheck: false
+			platformCheck: false,
+			earningsReport:null
 		};
+	},
+	onLoad() {
+		this.unionSettlement(1)
+		
 	},
 	methods: {
 		isActive(num) {
@@ -195,6 +201,13 @@ export default {
 				this.list[i].isActive = false;
 			}
 			this.list[num].isActive = true;
+			if(this.tabIndex == 1){
+				this.unionSettlement(num + 1)
+			}else if(this.tabIndex == 2){
+				this.mallSettlement(num + 1)
+			}else{
+				this.lineSettlement(num + 1)
+			}
 		},
 		openCheck(){
 			this.platformCheck = true
@@ -207,11 +220,33 @@ export default {
 			console.log(res.code)
 			// this.bankInfo = res.data.bank
 		},
+		async unionSettlement(type){
+			//联盟
+			const res = await this.post('/wap/Cis/union_sta',{type:type})
+			this.earningsReport = res.data
+			console.log(this.earningsReport)
+		},
+		async mallSettlement(type){
+			//自营
+			const res = await this.post('/wap/Cis/mall_sta',{type:type})
+			this.earningsReport = res.data
+		},
+		async lineSettlement(type){
+			//线下
+			const res = await this.get('/wap/Cis/line_sta',{type:type})
+			this.earningsReport = res.data
+		},
 		// 判断分类
 		tab(indx){
 			this.tabIndex = indx;
 			if(indx==1){
 				this.getBankInfo(1);
+				this.unionSettlement(1)
+				
+			}else if(indx == 2){
+				this.mallSettlement(1)
+			}else{
+				this.lineSettlement(1)
 			}
 		}
 	}
