@@ -16,6 +16,7 @@
 						<navigator url="../balanceWithdrawal/balanceWithdrawal" class="bg-white radius30 w100 h50 flex a-center j-center fs24" style="color: #F82840;">提现</navigator>
 					</view>
 				</view>
+				
 				<view class="flex">
 					<view class="flex-item">
 						<view class="flex a-center j-center text-white fs22 mb20">累计收益</view>
@@ -77,7 +78,7 @@
 			</view>
 		</view>
 		<view class="bg-white">
-			<navigator class="flex a-center h80 plr20" style="border-bottom: 1px solid #f3f3f3;" url="../balance/balance">
+			<navigator class="flex a-center h80 plr20" style="border-bottom: 1px solid #f3f3f3;" :url="'../balance/balance?BalanceOfSubsidiary='+JSON.stringify(BalanceOfSubsidiary)">
 				<text class="flex-item fs26">余额明细</text>
 				<view class="arrow-r"></view>
 			</navigator>
@@ -188,12 +189,13 @@ export default {
 				}
 			],
 			platformCheck: false,
-			earningsReport:null
+			earningsReport:null,
+			BalanceOfSubsidiary:[]
+			
 		};
 	},
 	onLoad() {
 		this.unionSettlement(1)
-		
 	},
 	methods: {
 		isActive(num) {
@@ -207,13 +209,18 @@ export default {
 				this.mallSettlement(num + 1)
 			}else{
 				this.lineSettlement(num + 1)
+				
 			}
 		},
 		openCheck(){
 			this.platformCheck = true
 		},
-		close(){
+		close(){	
 			this.platformCheck = false
+		},
+		async getLineBalanceOfSubsidiary(){
+			const res = await this.post('/wap/Cis/line_amount_log');
+			this.BalanceOfSubsidiary = res.data.log_list
 		},
 		async getBankInfo(type) {
 			const res = await this.post('/wap/Cis/union_sta',{type:type});
@@ -224,7 +231,6 @@ export default {
 			//联盟
 			const res = await this.post('/wap/Cis/union_sta',{type:type})
 			this.earningsReport = res.data
-			console.log(this.earningsReport)
 		},
 		async mallSettlement(type){
 			//自营
@@ -247,6 +253,7 @@ export default {
 				this.mallSettlement(1)
 			}else{
 				this.lineSettlement(1)
+				this.getLineBalanceOfSubsidiary()
 			}
 		}
 	}

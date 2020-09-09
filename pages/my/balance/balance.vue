@@ -5,12 +5,12 @@
 				<view class="balace-header-text fontSize14">可用余额</view>
 				<view class="balace-header-text fontSize18b">￥838.00</view>
 			</view>
-			<view class="balace-list" v-for="(ele, i) in list" :key="i">
+			<view class="balace-list" v-for="(ele, i) in BalanceOfSubsidiary" :key="i">
 				<view class="balace-list-left">
-					<view class="balace-top-text">{{ ele.title }}</view>
-					<view class="balace-bottom-text">2020-06-03 10:03</view>
+					<view class="balace-top-text">{{ ele.from_name }}</view>
+					<view class="balace-bottom-text">{{ele.created_at}}</view>
 				</view>
-				<view class="balace-list-right">+100.00</view>
+				<view class="balace-list-right">{{ele.sign}}{{ele.amount}}</view>
 			</view>
 		</view>
 	</page>
@@ -37,8 +37,13 @@
 						title: '关注',
 						show: false
 					}
-				]
+				],
+				BalanceOfSubsidiary:[]
 			};
+		},
+		onLoad(options) {
+			this.BalanceOfSubsidiary = JSON.parse(options.BalanceOfSubsidiary)
+			console.log(this.BalanceOfSubsidiary)
 		}
 	};
 </script>

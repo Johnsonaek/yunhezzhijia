@@ -693,7 +693,10 @@
         }
         ,{
             "path" : "pages/home/oil/oil",
-            "style" : {}
+            "style" : {
+				"onReachBottomDistance":600,
+				"enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/home/recharge/recharge",
@@ -758,7 +761,7 @@
 			}
         }
         ,{
-            "path" : "pages/home/jiayou/gasStationDetails/gasStationDetails",
+            "path" : "pages/home/oil/gasStationDetails/gasStationDetails",
             "style" : {}
         }
 		
@@ -769,5 +772,6 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"navigationStyle": "custom",
 		"backgroundColor": "#F8F8F8"
+		
 	}
 }

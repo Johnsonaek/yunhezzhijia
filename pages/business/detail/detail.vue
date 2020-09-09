@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<el-dialog  :visible.sync="dialogTableVisible" :show-close="false">
+		<uni-popup ref="popup" class="pop_tc">
 			<view class="share">
 				<view class="share_way">
 					<image src="../../../static/business/share/bchb.png"></image>
@@ -11,11 +11,11 @@
 					<view class="title" >生成链接</view>
 				</view>
 			</view>
-			<view class="btn" @click="dialogTableVisible = false">取消</view>
-		</el-dialog>
+			<view class="btn" @click="colsePop">取消</view>
+		</uni-popup>
 		<page title=" " :headbor="false">
 			<view class="" slot="right">
-				<text class="cuIcon-share" @click="dialogTableVisible = true"></text>
+				<text class="cuIcon-share" @click="sharePop"></text>
 				<!-- <text class="cuIcon-favor ml30"></text> -->
 			</view>
 			
@@ -74,10 +74,12 @@
 </template>
 
 <script>
+	import {uniPopup} from '@dcloudio/uni-ui'
 	import shopItem from '@/components/business-components/shop-item.vue';
 	export default {
 		components: {
-			shopItem
+			shopItem,
+			uniPopup
 		},
 		
 		data() {
@@ -92,8 +94,14 @@
 			this.getDetail()
 		},
 		methods: {
+			colsePop(){
+				this.$refs.popup.close()
+			},
+			sharePop(){
+				this.$refs.popup.open()
+			},
 			copy(){
-				this.dialogTableVisible = false
+				this.$refs.popup.close()
 				uni.showToast({//提示
 				  title:"链接复制成功"
 				})
@@ -116,12 +124,15 @@
 </script>
 
 <style lang="scss">
-/deep/ .el-dialog{
-	margin-top: 440rpx !important;
-		width: 600rpx;
+/deep/ .uni-popup__wrapper-box{
+		padding-top: 100rpx;
+		width: 80%;
+		height: 400rpx;
+		background-color: #FFFFFF;
 		.share{
 			display: flex;
 			justify-content: space-around;
+			margin-bottom: 30rpx;
 			image{
 				width: 100rpx;
 				height: 100rpx;
@@ -129,12 +140,14 @@
 		}
 		.btn{
 			margin: 0 auto;
-			margin-top: 60rpx;
-			width: 400rpx;
-			height: 60rpx;
-			line-height: 60rpx;
-			border: 1rpx solid #606266;
 			text-align: center;
+			border: 1rpx solid rgb(187, 187, 187);
+			width: 80%;
+			line-height: 80rpx;
+			font-size: 30rpx;
+			font-weight: 600;
+			height: 80rpx;
+			color: rgb(187, 187, 187);
 		}
 		
 	}
