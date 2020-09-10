@@ -6,7 +6,7 @@
 					<image src="../../../static/business/share/bchb.png"></image>
 					<view class="title">生成海报</view>
 				</view>
-				<view class="share_way" v-clipboard:success="copy"  v-clipboard:copy="message">
+				<view class="share_way" v-clipboard:success="copy">
 					<image src="../../../static/business/share/bclj.png"></image>
 					<view class="title" >生成链接</view>
 				</view>
@@ -101,7 +101,6 @@ export default {
 	},
 	data() {
 		return {
-			message:location.href,
 			getUrl: '/wap/LineGoods/List',
 			autoLoad: false,
 			detail: {},

@@ -72,7 +72,8 @@ export default {
 			isEdit: false,
 			autoLoad: true,
 			shopId:'',
-			setting:{}
+			setting:{},
+			timer:0
 		};
 	},
 	created() {
@@ -124,21 +125,23 @@ export default {
 			
 			let res = await this.post('/wap/UserCart/cartCheck', {
 				is_selected: !item.is_selected,
-				id: item.id
+				id: item.id,
 			});
 			item.is_selected = !item.is_selected;
 			this.selectItem(index);
 		},
 		changeNum(e, item, index) {
 			this.shopId=item.goodsId
-			// console.log(item);
 			if (item.cartNum === e) return;
 			this.post('/wap/UserCart/goodsNumChange', {
 				number: Number(e),
 				id: item.id
 			}).then(res => {
-				item.number = Number(e);
+				// item.number = Number(e);
+				console.log(res)
 			});
+		
+			
 		},
 		async updateAllIsCheck() {
 			this.$store.commit('setLoadingShow', true)
@@ -155,7 +158,7 @@ export default {
 		async getSetting() {
 			const res = await this.post('/wap/MallOrder/userMallSetting');
 			if(res.code == 200) {
-				console.log(typeof res.data.coupon_deduction_rate)
+				// console.log(typeof res.data.coupon_deduction_rate)
 				this.initSetting(res.data)
 			}
 		},

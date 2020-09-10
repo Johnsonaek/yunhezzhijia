@@ -108,7 +108,12 @@ export default {
 			tabBars: [],
 			banner: [],
 			currentDistance: 0,
-			otherParams:{},
+			otherParams:{
+				action:this.action,
+				longitude:113.253104,
+				latitude:23.130152,
+				distance:5
+			},
 			distanceList:[]
 		};
 	},
@@ -120,7 +125,8 @@ export default {
 		})
 	},
 	onLoad(e) {
-		this.action = e.action
+		this.action = Number(e.action)
+		
 		// this.init();
 	},
 	mounted() {
@@ -160,6 +166,7 @@ export default {
 		// action：1.首页门店轮播图 2.云合商圈播图 3首页联盟轮播图
 		async getBanners() {
 			const res = await this.post('/wap/Bases/AdsList', { action: 2 });
+			console.log(res)
 			if (res.code == 200) {
 				this.banner = res.data.list;
 			}

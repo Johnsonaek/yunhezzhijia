@@ -41,8 +41,13 @@
 											总价： <text class="price text-red">{{item.pay_amount}}</text>
 										</view>
 									</view>
+									
 								</view>
+								
 								<view class=" pt100">
+									<view v-if="item.status == 1" class="fs24 qui-btn inline mini outline text-red mt30" @click="goto('/pages/business/order-pay/order-pay?id='+item.id+'&amount='+item.pay_amount)">
+										待付款
+									</view>
 									<view v-if="item.status == 6" class="fs24 qui-btn inline mini outline text-red mt30">
 										已评价
 									</view>
@@ -51,7 +56,6 @@
 									</view>
 								</view>
 							</view>
-							
 						</view>
 			
 						<loading-more nomore-text="我是有底线的" :nomore="nomore" :list="list"></loading-more>
@@ -105,6 +109,23 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+	.btn{
+		border: 1rpx solid #000000;
+		width: 140rpx;
+		height: 48rpx;
+		line-height: 48rpx;
+		text-align: center;
+		font-size: 26rpx;
+		margin: 0 350rpx;
+		border-radius: 10rpx;
+	}
+	.red{
+		color: #F82840;
+		border: 1rpx solid #f82840;
+	}
+	.green{
+		color: rgb(68, 173, 19);
+		border: 1rpx solid rgb(68, 173, 19);
+	}
 </style>

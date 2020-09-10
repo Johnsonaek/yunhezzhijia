@@ -73,6 +73,7 @@
 			},
 			submit() {
 				this.post('/wap/LineOrder/OrderSubmit', this.form).then(res => {
+					console.log(res)
 					let orderId = res.data.order_id
 					this.success(res,'订单提交成功', () => {
 						uni.navigateTo({

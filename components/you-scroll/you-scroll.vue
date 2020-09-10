@@ -132,12 +132,12 @@
 				
 			},
 			isWeixinCient(){
-				var ua = navigator.userAgent.toLowerCase();
-				if(ua.match(/MicroMessenger/i)=="micromessenger") {
-					return true;
-				} else {
-					return false;
-				}
+				// var ua = navigator.userAgent.toLowerCase();
+				// if(ua.match(/MicroMessenger/i)=="micromessenger") {
+				// 	return true;
+				// } else {
+				// 	return false;
+				// }
 			},
 			goTop(top) {
 				this.scrollToTop = this.oldTop;

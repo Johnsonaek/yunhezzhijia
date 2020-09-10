@@ -125,6 +125,7 @@
 							<view @click="remind(item.order_number)" v-if="item.order_status == 20" class="price_btn">提醒发货</view>
 							<view @click="remind(item.order_number)" v-if="item.order_status == 30" class="price_btn">提醒发货</view>
 							<view @click="confirm(item.order_number)" v-if="item.order_status == 40" class="price_btn">提醒发货</view>
+							<view @click="remind(item.order_number)" v-if="item.order_status == 45" class="price_btn">确认收货</view>
 							<navigator :url="'/pages/shengtai/order-detail/order-detail?id=' + item.order_number" v-if="item.order_status == 50" class="price_btn">
 								再次购买
 							</navigator>

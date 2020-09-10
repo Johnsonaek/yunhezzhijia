@@ -59,6 +59,7 @@ export default {
 	onLoad(e) {
 		this.amount = e.amount;
 		this.id = e.id;
+		console.log(e)
 	},
 	methods: {
 		radioChange(evt) {
@@ -102,8 +103,9 @@ export default {
 				);
 				return;
 			} else {
+				console.log(this.id)
 				const res = await this.post('/wap/MallOrderPay/orderPay', { order_id: this.id, payment_type: this.type });
-				// console.log(res);
+				console.log(res);
 				// let url = "alipays://platformapi/startapp?appId=10000007&qrcode=" + pay_info字段对应的值
 				let url = res.data.payment.expend.pay_info
 				plus.runtime.openURL(url)
@@ -113,6 +115,8 @@ export default {
 			}
 			
 		}
+	
+	
 	}
 };
 </script>

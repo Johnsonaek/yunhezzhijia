@@ -71,22 +71,52 @@ export default {
 			this.type = evt.target.value;
 		},
 		async submit() {
+			let me = this;
+				if (this.type == 1) {
+					// const res = await this.post('/wap/MallOrderPay/orderPay', { order_id: this.id, payment_type: this.type });
+					// console.log(res)
+					
+					// return;
+					plus.share.getServices(
+						function(res) {
+							console.log(me.id)
+							var sweixin = null;
+							for (var i = 0; i < res.length; i++) {
+								var t = res[i];
+								if (t.id == 'weixin') {
+									sweixin = t;
+								}
+							}
+							console.log(sweixin)
+							if (sweixin) {
+								sweixin.launchMiniProgram({
+									id: 'gh_3d067a9824f2',
+									type: 2, //0 正式 1 测试 2 体验  小程序的版本
+									path: 'pages/order-pay/order-pay?id='+me.id+'&amount='+me.amount //这里你要跳的路径，可以传值
+								});
+							}
+						},
+						function(res) {
+							console.log(JSON.stringify(res));
+						}
+					);
+					return;
+				} else {
+					console.log(this.id)
+					const res = await this.post('/wap/LineOrder/orderPay', { order_id: this.id, payment_type: this.type });
+					console.log(res);
+					// let url = "alipays://platformapi/startapp?appId=10000007&qrcode=" + pay_info字段对应的值
+					let url = res.data.payment.expend.pay_info
+					plus.runtime.openURL(url)
 			
-			const res = await this.post('/wap/LineOrder/orderPay', { order_id: this.id, payment_type: this.type });
-			console.log(res);
-			
-			AdaPay.doPay(res.data.payment, result => {
-				console.log('返回结果码.....' + result.result_status);
-				console.log('返回结果描述.....' + result.result_message);
-				console.log('返回结果信息.....' + result.result_info);
-			});
-			uni.navigateTo({
-				url:'/pages/business/pay-result/pay-result'
-			})
-
+					
+					// let url2 = '/pages/business/pay-result/pay-result';
+				}
+				
+			}
 			// let url2 = '/pages/business/pay-result/pay-result';
 		}
-	}
+	
 };
 </script>
 
