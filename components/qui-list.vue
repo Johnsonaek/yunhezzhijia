@@ -76,6 +76,7 @@ export default {
 			this.otherData = otherData;
 		},
 		async getList() {
+			console.log(this.otherParams)
 			console.log(this.getUrl)
 			if (this.getUrl === '') return;
 			this.loaded = false;

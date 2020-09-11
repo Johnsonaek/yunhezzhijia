@@ -39,7 +39,7 @@
 						<text class="cuIcon-triangledownfill fs40"></text>
 					</view>
 					<view @click="sort" class="qui-grid" :class="sortType == 1 ? 'up' : 'down'">
-						<text v-if="action == 1" class="arrow">红包金</text>
+						<text v-if="action == 2" class="arrow">红包金</text>
 						<text v-else class="arrow">佣金</text>
 					</view>
 				</view>
@@ -110,9 +110,9 @@ export default {
 			currentDistance: 0,
 			otherParams:{
 				action:this.action,
-				longitude:113.253104,
-				latitude:23.130152,
-				distance:5
+				longitude:Number,
+				latitude:Number,
+				distance:3
 			},
 			distanceList:[]
 		};
@@ -126,8 +126,8 @@ export default {
 	},
 	onLoad(e) {
 		this.action = Number(e.action)
-		
 		// this.init();
+		console.log(this.otherParams)
 	},
 	mounted() {
 		this.init()
@@ -135,7 +135,7 @@ export default {
 	methods: {
 		init() {
 			this.getBanners();
-			this.getListData();
+			this.getListData(); 
 			this.getNearby()
 		},
 		async getNearby() {
@@ -144,8 +144,8 @@ export default {
 		},
 		getListData() {
 			this.otherParams.action = this.action;
-			this.otherParams.longitude = this.Location.longitude || 0; // 经度
-			this.otherParams.latitude = this.Location.latitude || 0; // 纬度
+			this.otherParams.longitude = this.Location.longitude || 113.240459; // 经度
+			this.otherParams.latitude = this.Location.latitude || 23.130919; // 纬度
 			this.otherParams.region = 0; // 区id
 			this.$refs.qlist.getListInit();
 		},

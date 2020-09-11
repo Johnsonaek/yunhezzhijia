@@ -20,6 +20,7 @@ export default {
 		if(this.autoLoad) {
 			this.getListInit()
 		}
+		
 	},
 	methods: {
 		Scrolltolower() {
@@ -35,12 +36,14 @@ export default {
 			this.getList()
 		},
 		getListInit(){
+			console.log(1231231)
 			this.list = [];
 			this.currentPage = 0;
 			this.getList()
 		},
 		getListResult(items){
 			this.list = [...this.list, ...items]
+			
 		},
 		getOther(otherData){
 			this.otherData = otherData
@@ -50,9 +53,14 @@ export default {
 			this.loaded = false;
 			try {
 				let res = await this.post(this.getUrl, this.params)
+				console.log(res.data['list'])
 				this.totalCount = res.data.pageCount
 				//this.list = [...this.list, ...res.result.items]
-				this.getListResult(res.data[this.listName])
+				if(res.data[this.listName] != undefined){
+					this.getListResult(res.data[this.listName])
+				}else{
+					this.getListResult(res.data)
+				}
 				
 				this.loaded = true;
 			} catch (e) {

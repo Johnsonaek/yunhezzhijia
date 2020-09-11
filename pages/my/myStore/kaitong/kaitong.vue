@@ -62,7 +62,7 @@
 				const res = await this.post('/wap/Line/ActivityAmount', this.form)
 				if(res.data.orderId){
 					uni.navigateTo({
-						url: `/pages/business/order-pay/order-pay?id=${res.data.orderId}&amount=100`
+						url: `/pages/business/order-pay/order-pay?id=${res.data.orderId}&amount=888`
 					})
 				}
 				// 未完待续 成功后要做什么操作呢？ 给个状态我，如果开通了的这个页面上，已成功开通活动金

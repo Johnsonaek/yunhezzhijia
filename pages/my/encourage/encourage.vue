@@ -2,15 +2,15 @@
 	<view>
 		<page title="鼓励金" @scrolltolower="loadMore('qlist')">
 			<view class="encourage ptb60 ">
-				<text class="fs50">59900.00</text>
+				<text class="fs50" v-if="gljye != Number">{{gljye}}</text>
 				<view>鼓励金金额</view>
 			</view>
 			
-			<qui-list getUrl="/wap/Withdraw/withdrawList" ref="qlist" v-slot="data">
+			<qui-list getUrl="/wap/Incentive/incentiveList" ref="qlist" v-slot="data">
 				<view class="qui-cells">
 					<view class="qui-cell" v-for="(item,index) in data.list" :key="index">
 						<view class="cell-bd">
-							<view class="fs28">提现到-{{item.bank_name}}({{item.card_id}})</view>
+							<view class="fs28">{{item.remark}}</view>
 							<view class="text-muted fs24 mt10">{{item.created_at}}</view>
 						</view>
 						<view class="tr">
@@ -33,14 +33,23 @@
 </template>
 
 <script>
+	import pagination from '@/common/mixin/pagination.js';
 	export default {
+		mixins:[pagination],
 		data() {
 			return {
-				
+				gljye:Number
 			}
 		},
+		onLoad(){
+			this.getgljye()
+			this.getgljyeasda()
+		},
 		methods: {
-			
+			async getgljye(){
+				const res = await this.post('/wap/Cis/balance',{type:3})
+				this.gljye = res.data.money
+			}
 		}
 	}
 </script>

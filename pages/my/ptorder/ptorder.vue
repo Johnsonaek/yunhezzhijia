@@ -37,18 +37,17 @@
 			<view class="loading ptb30" v-if="!loaded"></view>
 			<view class="qui-card panel mb24 mt24" v-for="(item, index) in list" :key="index">
 				<view class="card-hd bor-1px-b">
-					<text class="text-muted fs24">订单编号：{{item.orderSn}}</text>
+					<text class="text-muted fs24">订单编号：{{item.order_sn}}</text>
 <!-- （当action=1时，存在）订单状态：1.待支付2.已支付10.已取消3.待评价4.已评价 -->
-					<text v-if="item.status == 1" class="text-red fs24">待付款</text>
-					<text v-if="item.status == 2" class="text-red fs24">已支付</text>
-					<text v-if="item.status == 3" class="text-red fs24">待评价</text>
-					<text v-if="item.status == 4" class="text-red fs24">已评价</text>
-					<text v-if="item.status == 10" class="text-red fs24">已取消</text>
+					<text v-if="item.order_status == 1" class="text-red fs24">已付款</text>
+					<text v-if="item.order_status == 2" class="text-red fs24">已发货</text>
+					<text v-if="item.order_status == 3" class="text-red fs24">已结算</text>
+					<text v-if="item.order_status == 4" class="text-red fs24">已失效</text>
 				</view>
-				<navigator  :url="'/pages/shengtai/order-detail/order-detail?id='+item.order_number" class="qui-cell border-none">
-					<view class="mr20"><q-image :imgwh="140" src="/static/business/rangking/v2_qaxhld.jpg"></q-image></view>
+				<navigator  :url="'/pages/shengtai/order-detail/order-detail?id='+item.goods_num" class="qui-cell border-none">
+					<view class="mr20"><q-image :imgwh="140" :src="item.img_url"></q-image></view>
 					<view class="cell-bd">
-						<view class="line2">烟台红富士苹果水果礼盒生</view>
+						<view class="line2">{{item.goods_name}}</view>
 						<view class="flex mt30">
 							<view class="flex-item flex a-center"><text class="text-red price fs34 mr20">100 </text> x 12</view>
 							<view class="text-red"> +34</view>
@@ -56,9 +55,10 @@
 					</view>
 				</navigator>
 				<view class="plr30 ptb20 tr bor-1px-t">
+					<view class="time">{{item.order_sn}}</view>
 					<!-- 0待付款 1待发货 2待收货 3完成 -->
 			
-					<navigator :url="'/pages/shengtai/order-detail/order-detail?id=' + item.order_number" v-if="item.status == 0" class="qui-btn inline small outline">
+					<!-- <navigator :url="'/pages/shengtai/order-detail/order-detail?id=' + item.order_number" v-if="item.status == 0" class="qui-btn inline small outline">
 						立即付款
 					</navigator>
 					<view @click="remind(item.order_number)" v-if="item.status == 1" class="qui-btn inline small outline">提醒发货</view>
@@ -68,7 +68,7 @@
 					</navigator>
 					<view v-if="item.status == -1" class="qui-btn inline small outline">
 						已取消
-					</view>
+					</view> -->
 				</view>
 			</view>
 
@@ -83,29 +83,29 @@ export default {
 	mixins: [pagination],
 	data() {
 		return {
-			getUrl: '/wap/Order/OrderList', // 需要分页的接口地址，
+			getUrl: '/wap/LeagueOrder/Orderlist', // 需要分页的接口地址，
 			autoLoad: false,
-			TabCur: -1,
+			TabCur: 0,
 			tabBars: [
 				{
 					name: '全部',
-					type: -1
+					type:0
 				},
 				{
 					name: '已付款',
-					type: 0
-				},
-				{
-					name: '已发货',
 					type: 1
 				},
 				{
-					name: '已结算',
+					name: '已发货',
 					type: 2
 				},
 				{
-					name: '已失效',
+					name: '已结算',
 					type: 3
+				},
+				{
+					name: '已失效',
+					type: 4
 				}
 			],
 			teamlist: [
@@ -142,19 +142,13 @@ export default {
 			]
 		};
 	},
-	onLoad() {
-	
-		this.params.platformId = 12
-		this.params.action = 2
-		this.params.lineShopId = 4
+	onLoad(e) {
+		this.params.action = 1
+		this.params.source = Number(e.source)
 		this.getListInit()
-		this.getOrderList()
+		
 	},
 	methods: {
-		async getOrderList(){
-			const res = await this.post('/wap/LeagueOrder/Orderlist',{source:1,currentPage:1,pageSize:10})
-			console.log(res)
-		},
 		teamActive(numb) {
 			for (let i in this.teamlist) {
 				this.teamlist[i].teamActive = false;
@@ -163,8 +157,9 @@ export default {
 		},
 		// 切换选项卡
 		tabSelect(e) {
-			this.TabCur = e.currentTarget.dataset.type;
-			this.params.status = e.currentTarget.dataset.type;
+			console.log(e)
+			this.TabCur = Number(e.currentTarget.dataset.type);
+			this.params.status = Number(e.currentTarget.dataset.type);
 			if (this.TabCur == -1) {
 				this.params.status = null;
 			}

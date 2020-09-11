@@ -2,15 +2,15 @@
 	<view>
 		<page title="消费劵" @scrolltolower="loadMore('qlist')">
 			<view class="encourage ptb60 ">
-				<text class="fs50">59900.00</text>
+				<text class="fs50" v-if="xfjye != Number">{{xfjye}}</text>
 				<view>消费消费劵</view>
 			</view>
 			
-			<qui-list getUrl="/wap/Withdraw/withdrawList" ref="qlist" v-slot="data">
+			<qui-list getUrl="/wap/Coupon/couponList" ref="qlist" v-slot="data">
 				<view class="qui-cells">
 					<view class="qui-cell" v-for="(item,index) in data.list" :key="index">
 						<view class="cell-bd">
-							<view class="fs28">提现到-{{item.bank_name}}({{item.card_id}})</view>
+							<view class="fs28">{{item.remark}}</view>
 							<view class="text-muted fs24 mt10">{{item.created_at}}</view>
 						</view>
 						<view class="tr">
@@ -36,11 +36,17 @@
 	export default {
 		data() {
 			return {
-				
+				xfjye:Number
 			}
 		},
+		onLoad() {
+			this.getxfjye()
+		},
 		methods: {
-			
+			async getxfjye(){
+				const res = await this.post('/wap/Cis/balance',{type:2})
+				this.xfjye = res.data.money
+			},
 		}
 	}
 </script>

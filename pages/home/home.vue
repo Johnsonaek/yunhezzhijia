@@ -152,11 +152,11 @@
 							</swiper-item>
 						</swiper>
 						<!-- <view>dsfafsf</view> -->
-						<block v-for="(item, index9) in list" :key="index9">
+						<view v-for="(item, index9) in list" :key="index9">
 							<view @click="goto('/pages/business/shop/shop?id=' + item.id)" v-for="(item, index8) in list" :key="index8">
 								<shop-item :itemData="item"></shop-item>
 							</view>
-						</block>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -296,7 +296,7 @@ export default {
 			console.log(item);
 				
 			if(item.id == 15){
-				location.href = 'https://www.ctrip.com/?AllianceID=1246422&sid=3012593&ouid=&app=0101F00'
+				plus.runtime.openURL('https://www.ctrip.com/?AllianceID=1246422&sid=3012593&ouid=&app=0101F00')
 			}
 			uni.navigateTo({
 				url: item.url
@@ -380,6 +380,7 @@ export default {
 		// 类型：1.分销大厅 2.兑换大厅
 		async getOtherLobbyList(action) {
 			const res = await this.post('/wap/OtherLobby/List', { action: action });
+			console.log(res)
 			if (res.code == 200) {
 				if (action == 1) {
 					this.fxList = res.data.list;
